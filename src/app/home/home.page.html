@@ -7,8 +7,24 @@
 </ion-header>
 
 <ion-content>
-  <div class="ion-padding">
-    The world is your oyster.
-    <p>If you get lost, the <a target="_blank" rel="noopener" href="https://ionicframework.com/docs/">docs</a> will be your guide.</p>
-  </div>
+  <ion-item>
+    <ion-label>Nombre</ion-label>
+    <ion-input [(ngModel)]="value.name" placeholder="Clint"></ion-input>
+  </ion-item>
+  <ion-item>
+    <ion-label>Apellido</ion-label>
+    <ion-input [(ngModel)]="value.surname" placeholder="Barton"></ion-input>
+  </ion-item>
+  <ion-item>
+    <ion-label>Edad</ion-label>
+    <ion-input [(ngModel)]="value.age" placeholder="12"></ion-input>
+  </ion-item>
+  <ion-button ion-button block clear (click)="addUser(value)">Añadir</ion-button>
+
+  <ion-searchbar showcancelbutton="" (ionInput)="filterList($event)"></ion-searchbar>
+  <ion-list>
+    <ion-item *ngFor="let item of goalList">
+      <ion-label>{{ item.name }}</ion-label>
+    </ion-item>
+  </ion-list>
 </ion-content>
