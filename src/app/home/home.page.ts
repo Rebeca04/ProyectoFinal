@@ -3,14 +3,8 @@ import * as firebase from 'firebase/app';
 import { AngularFirestore, AngularFirestoreCollection, AngularFirestoreDocument } from 'angularfire2/firestore';
 import { FirebaseDatabase, FirebaseStorage } from 'angularfire2';
 import { Observable } from 'rxjs';
+import { Cliente } from '../models/cliente/cliente.inteface';
 
-
-interface Items {
-  key?: any,
-  name: string,
-  surname: string,
-  age: any
-}
 
 @Component({
   selector: 'app-home',
@@ -22,10 +16,10 @@ export class HomePage {
 
   valueSearch: any; 
 
-  value: any = {
-    name: "",
-    surname: "",
-    age: ""
+  cli: Cliente = {
+    nombre: "",
+    telefono: 0,
+    direccion: ""
   };
 
   // itemsCollection: AngularFirestoreCollection<Items>;
@@ -73,8 +67,8 @@ export class HomePage {
     }
 
     this.goalList = this.goalList.filter(currentGoal => {
-      if (currentGoal.name && searchTerm) {
-        if (currentGoal.name.toLowerCase().indexOf(searchTerm.toLowerCase()) > -1) {
+      if (currentGoal.nombre && searchTerm) {
+        if (currentGoal.nombre.toLowerCase().indexOf(searchTerm.toLowerCase()) > -1) {
           return true;
         }
         return false;
@@ -98,11 +92,7 @@ export class HomePage {
 
   addUser(value) {
     return new Promise<any>((resolve, reject) => {
-      this.afs.collection('/users').doc(value.name + value.surname).set({
-        name: value.name,
-        surname: value.surname,
-        age: parseInt(value.age)
-      })
+      this.afs.collection('/users').doc(value.key + value.nombre).set(value)
         .then((res) => {
           resolve(res)
         }, err => reject(err))
