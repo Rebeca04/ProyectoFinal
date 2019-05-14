@@ -35,27 +35,6 @@ export class HomePage {
     public afs: AngularFirestore
   ) {
     this.ngOnInit();
-    //this.itemsCollection = this.afs.collection("users");
-    //this.varia = this.itemsCollection.valueChanges();
-    //this.afs.collection("users").get().forEach( doc =>  doc.forEach( us => console.log(us)));
-    //this.items = this.itemsCollection.valueChanges();
-
-    // this.items = this.itemsCollection.get().forEach( doc => { 
-    //   'surname', '==', 'Barton';
-    // });
-    // this.items.forEach(users => {
-    //   users.forEach(user => {
-    //     if (user.surname = "Barton") {
-    //       console.log(this.afs.collection("users").doc("").valueChanges())
-
-    //     }
-    //   })
-    // });
-    //for (const key in this.items) {
-    //if (this.items.hasOwnProperty(key)) {
-    //const element = this.items[key].name;
-    //}
-    //} 
   }
 
   filterList(evt) {
