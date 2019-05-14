@@ -20,6 +20,7 @@ interface Items {
 
 export class HomePage {
 
+  valueSearch: any; 
 
   value: any = {
     name: "",
@@ -74,7 +75,6 @@ export class HomePage {
     this.goalList = this.goalList.filter(currentGoal => {
       if (currentGoal.name && searchTerm) {
         if (currentGoal.name.toLowerCase().indexOf(searchTerm.toLowerCase()) > -1) {
-          console.log(currentGoal.name);
           return true;
         }
         return false;
@@ -91,6 +91,11 @@ export class HomePage {
   initializeItems(): void {
     this.goalList = this.loadedGoalList;
   }
+
+  elementSetect(elementSelected){
+    this.valueSearch= elementSelected;
+  }
+
   addUser(value) {
     return new Promise<any>((resolve, reject) => {
       this.afs.collection('/users').doc(value.name + value.surname).set({

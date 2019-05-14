@@ -24,7 +24,9 @@
   <ion-searchbar showcancelbutton="" (ionInput)="filterList($event)"></ion-searchbar>
   <ion-list>
     <ion-item *ngFor="let item of goalList">
-      <ion-label>{{ item.name }} {{ item.surname }}</ion-label>
+      <ion-label (click)="elementSetect(item.name)">{{ item.name }} {{ item.surname }}</ion-label>
     </ion-item>
   </ion-list>
+
+  <h1>{{valueSearch}}</h1>
 </ion-content>
