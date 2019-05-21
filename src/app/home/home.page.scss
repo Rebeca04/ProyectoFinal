@@ -1,14 +1,22 @@
-// .cardCliente {
-//     background: url('../../images/fontanería3.1.jpg');
-//     background-repeat: round;
-//     background-size: cover;
-//     width: 60vw;
-//     height: 35vw;
-//   }
-
-  ion-card {
+.container{
+    align-items: center;
+}
+  .cardCliente {
+    background: url('../../images/fontanería3.1.jpg');
+    background-repeat: round;
+    background-size: cover;
     position: relative;
-    text-align: center;
+    height: 50vw;
+    min-height: 60px;
+
+  }
+  .cardTrabajo {
+    background: url('../../images/fontaneria1.jpg');
+    background-repeat: round;
+    background-size: cover;
+    position: relative;
+    height: 50vw;
+    min-height: 60px;
   }
   .card-title {
     position: absolute;
@@ -16,5 +24,9 @@
     font-size: 2.0em;
     width: 100%;
     font-weight: bold;
-    color: #fff;
+    color: #f7f7f7;
+    background-color: #808080a8;
+    padding: 5px;
+    text-align: center;
   }
+

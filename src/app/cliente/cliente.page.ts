@@ -66,6 +66,10 @@ export class ClientePage implements OnInit {
     this.presentModal()
   }
 
+  deleteButton(clien:Cliente) {
+    this.afs.collection("clientes").doc(clien.key + clien.nombre).delete();
+  }
+
   elementSetect(elementSelected) {
     this.valueSearch = elementSelected.nombre;
     this.cli= elementSelected;

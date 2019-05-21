@@ -18,7 +18,10 @@ export class HomePage {
   constructor(public navCtrl: NavController) {  }
 
   ngOnInit() { }
-  pushClient(){
+  pushTrabajo(){
+
+  }
+  pushCliente(){
     this.navCtrl.navigateRoot("/home/cliente");
   }
 }

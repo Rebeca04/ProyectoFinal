@@ -6,9 +6,11 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content>
-  <ion-card class="cardCliente" (click)="pushClient()">
-    <img src="../../images/fontanería3.1.jpg"/>
+<ion-content class="container">
+  <ion-card class="cardTrabajo" (click)="pushTrabajo()">
+    <ion-label class="card-title">Trabajos</ion-label>
+  </ion-card>
+  <ion-card class="cardCliente" (click)="pushCliente()">
     <ion-label class="card-title">Clientes</ion-label>
   </ion-card>
 </ion-content>
