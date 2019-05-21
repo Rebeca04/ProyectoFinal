@@ -6,23 +6,27 @@
     <ion-title class="header">
       Clientes
     </ion-title>
-    <ion-button block fill="clear" (click)="addClient()">Añadir</ion-button>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
-  <ion-searchbar showcancelbutton="" (ionInput)="filterList($event)"></ion-searchbar>
-  <ion-list>
-  <ion-item-sliding *ngFor="let item of clientList">
-    <ion-item (click)="elementSetect(item)">
-        <label>{{ item.nombre }} {{ item.key }}</label>
-    </ion-item>
+  <div class="container_header">
+    <ion-searchbar showcancelbutton="" (ionInput)="filterList($event)"></ion-searchbar>
+    <ion-button block fill="clear" (click)="addClient()">
+      <ion-icon size="large" color="tertiary" name="add-circle-outline"></ion-icon>
+    </ion-button>
+  </div>
+  <ion-list class="list_search">
+    <ion-item-sliding class="item_search" *ngFor="let item of clientList">
+      <ion-item (click)="elementSetect(item)">
+        <p>{{ item.nombre }} {{ item.key }}</p>
+      </ion-item>
       <ion-item-options side="end">
-        <ion-button color="danger" (click)="deleteButton(item)">
-          <ion-icon name="trash"></ion-icon>
+        <ion-button class="button_trash" color="danger" (click)="deleteButton(item)">
+          <ion-icon size="large" name="trash"></ion-icon>
         </ion-button>
       </ion-item-options>
     </ion-item-sliding>
   </ion-list>
-  <h1>{{valueSearch}}</h1>
+  <!-- <h1>{{valueSearch}}</h1> -->
 </ion-content>

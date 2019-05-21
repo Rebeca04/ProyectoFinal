@@ -31,7 +31,8 @@ export class ModalClientePage implements OnInit {
     return new Promise<any>((resolve, reject) => {
       this.afs.collection('/clientes').doc(value.key + value.nombre).set(value)
         .then((res) => {
-          resolve(res)
+          resolve(res);
+          this.goBack();
         }, err => reject(err))
     })
   }

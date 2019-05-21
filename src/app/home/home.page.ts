@@ -21,7 +21,20 @@ export class HomePage {
   pushTrabajo(){
 
   }
+
+  pushMaterial(){
+
+  }
+  
   pushCliente(){
     this.navCtrl.navigateRoot("/home/cliente");
+  }
+
+  pushProveedor(){
+
+  }
+
+  pushServicio(){
+    
   }
 }

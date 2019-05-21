@@ -5,6 +5,7 @@ import { Cliente } from '../models/cliente/cliente.inteface';
 import { NavController } from '@ionic/angular';
 import { ModalController } from '@ionic/angular';
 import { ModalClientePage } from '../modals/modal-cliente/modal-cliente.page';
+import { toUnicode } from 'punycode';
 
 @Component({
   selector: 'app-cliente',
@@ -31,11 +32,16 @@ export class ClientePage implements OnInit {
   constructor(public afs: AngularFirestore, public navCtrl: NavController, public modalController: ModalController) {
   }
 
+
   filterList(evt) {
-    this.initializeItems();
+    //Al ir borrando en el buscardor no va comparando si coincide
+    //this.initializeItems();
     const searchTerm = evt.srcElement.value;
 
     if (!searchTerm) {
+      this.afs.collection('clientes').valueChanges().subscribe(clients => {
+        this.clientList = clients;
+      });
       return;
     }
 
@@ -57,7 +63,7 @@ export class ClientePage implements OnInit {
   initializeItems(): void {
     this.clientList = this.loadedGoalList;
   }
-  addClient(){
+  addClient() {
     this.cli = {
       nombre: "",
       telefono: 0,
@@ -66,13 +72,13 @@ export class ClientePage implements OnInit {
     this.presentModal()
   }
 
-  deleteButton(clien:Cliente) {
+  deleteButton(clien: Cliente) {
     this.afs.collection("clientes").doc(clien.key + clien.nombre).delete();
   }
 
   elementSetect(elementSelected) {
     this.valueSearch = elementSelected.nombre;
-    this.cli= elementSelected;
+    this.cli = elementSelected;
     console.log(elementSelected);
     this.presentModal()
   }
@@ -81,7 +87,7 @@ export class ClientePage implements OnInit {
   goBack() {
     this.navCtrl.navigateRoot("home");
   }
-  
+
   async presentModal() {
     const modal = await this.modalController.create({
       component: ModalClientePage,
