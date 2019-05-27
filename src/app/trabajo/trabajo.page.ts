@@ -66,7 +66,7 @@ export class TrabajoPage implements OnInit {
   }
 
   deleteButton(trab: Trabajo) {
-    this.afs.collection("servicios").doc(trab.key + trab.cliente).delete();
+    this.afs.collection("trabajos").doc(trab.key + trab.cliente).delete();
   }
 
   elementSetect(elementSelected) {
