@@ -19,22 +19,22 @@ export class HomePage {
 
   ngOnInit() { }
   pushTrabajo(){
-
+    this.navCtrl.navigateRoot("/home/trabajo");
   }
 
   pushMaterial(){
-
+    this.navCtrl.navigateRoot("/home/material");
   }
-  
+
   pushCliente(){
     this.navCtrl.navigateRoot("/home/cliente");
   }
 
   pushProveedor(){
-
+    this.navCtrl.navigateRoot("/home/proveedor");
   }
 
   pushServicio(){
-    
+    this.navCtrl.navigateRoot("/home/servicio");
   }
 }

@@ -1,32 +1,30 @@
 import { Component, OnInit } from '@angular/core';
-import * as firebase from 'firebase/app';
 import { AngularFirestore } from 'angularfire2/firestore';
 import { NavController } from '@ionic/angular';
 import { ModalController } from '@ionic/angular';
-import { ModalProveedorPage } from '../modals/modal-proveedor/modal-proveedor.page';
-import { Proveedor } from '../models/proveedor/proveedor.inteface';
+import { Categoria } from '../models/categoria/categoria.inteface';
+import { ModalCategoriaPage } from '../modals/modal-categoria/modal-categoria.page';
 
 @Component({
-  selector: 'app-proveedor',
-  templateUrl: './proveedor.page.html',
-  styleUrls: ['./proveedor.page.scss'],
+  selector: 'app-categoria',
+  templateUrl: './categoria.page.html',
+  styleUrls: ['./categoria.page.scss'],
 })
-export class ProveedorPage implements OnInit {
-  
+export class CategoriaPage implements OnInit {
+    
   index: number = 0;
 
   valueSearch: any;
 
-  pro: Proveedor;
+  cat: Categoria;
 
-  public provList: any[];
+  public catList: any[];
 
-  listaUsers: Array<[]>;
   constructor(public afs: AngularFirestore, public navCtrl: NavController, public modalController: ModalController) { }
 
   ngOnInit() {
-    this.afs.collection('proveedores').valueChanges().subscribe(provs => {
-      this.provList = provs;
+    this.afs.collection('categorias').valueChanges().subscribe(cats => {
+      this.catList = cats;
     });
   }
 
@@ -35,13 +33,13 @@ export class ProveedorPage implements OnInit {
     const searchTerm = evt.srcElement.value;
 
     if (!searchTerm) {
-      this.afs.collection('proveedores').valueChanges().subscribe(provs => {
-        this.provList = provs;
+      this.afs.collection('categorias').valueChanges().subscribe(provs => {
+        this.catList = provs;
       });
       return;
     }
 
-    this.provList = this.provList.filter(currentGoal => {
+    this.catList = this.catList.filter(currentGoal => {
       if (currentGoal.nombre && searchTerm) {
         if (currentGoal.nombre.toLowerCase().indexOf(searchTerm.toLowerCase()) > -1) {
           return true;
@@ -52,37 +50,34 @@ export class ProveedorPage implements OnInit {
   }
 
   addProv() {
-    this.pro = {
+    this.cat = {
       nombre: "",
-      telefono: 0,
-      direccion: "",
-      nombreContacto: ""
+      descripcion: ""
     };
     this.presentModal()
   }
 
-  deleteButton(prov: Proveedor) {
-    this.afs.collection("proveedores").doc(prov.key + prov.nombre).delete();
+  deleteButton(prov: Categoria) {
+    this.afs.collection("categorias").doc(prov.key + prov.nombre).delete();
   }
 
   elementSetect(elementSelected) {
     this.valueSearch = elementSelected.nombre;
-    this.pro = elementSelected;
+    this.cat = elementSelected;
     console.log(elementSelected);
     this.presentModal()
   }
 
 
   goBack() {
-    this.navCtrl.navigateRoot("home");
+    this.navCtrl.navigateRoot("/home/material");
   }
 
   async presentModal() {
     const modal = await this.modalController.create({
-      component: ModalProveedorPage,
-      componentProps: { proveedor: this.pro }
+      component: ModalCategoriaPage,
+      componentProps: { categoria: this.cat }
     });
     return await modal.present();
   }
-
 }

@@ -1,0 +1,51 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-button fill="clear" (click)="goBack()">
+      <ion-icon color="danger" name="arrow-round-back"></ion-icon>
+    </ion-button>
+    <ion-title>{{mat.nombre}}</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="container_body">
+  <ion-card>
+    <ion-item>
+      <ion-label position="stacked">Nombre</ion-label>
+      <ion-input [(ngModel)]="mat.nombre" placeholder="pront"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label position="stacked">Descripción</ion-label>
+      <ion-input [(ngModel)]="mat.descripcion" placeholder="descripcion"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label position="floating">Precio</ion-label>
+      <ion-input [(ngModel)]="mat.precio" type="number" placeholder=""></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label position="floating">Stock</ion-label>
+      <ion-input [(ngModel)]="mat.stock" type="number" placeholder=""></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label>Categoría</ion-label>
+      <ion-select [(ngModel)]="mat.categoria"  placeholder="Elige una">
+        <ion-item class="item_search" *ngFor="let c of catList">
+          <ion-select-option value="{{c.nombre}}">{{c.nombre}}</ion-select-option>
+        </ion-item>
+      </ion-select>
+    </ion-item>
+    <ion-item>
+      <ion-label>Proveedor</ion-label>
+      <ion-select [(ngModel)]="mat.proveedor"  placeholder="Elige uno">
+        <ion-item class="item_search" *ngFor="let p of provList">
+          <ion-select-option value="{{p.nombre}}">{{p.nombre}}</ion-select-option>
+        </ion-item>
+      </ion-select>
+    </ion-item>
+  </ion-card>
+  <ion-button fill="clear" (click)="addUser(mat)">
+    <ion-icon size="large" color="success" name="add-circle"></ion-icon>
+  </ion-button>
+  <ion-button fill="clear" (click)="deleteButton()">
+    <ion-icon size="large" color="danger" name="trash"></ion-icon>
+  </ion-button>
+</ion-content>

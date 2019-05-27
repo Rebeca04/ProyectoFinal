@@ -13,12 +13,15 @@ import { AppRoutingModule } from './app-routing.module';
 import { AngularFireModule } from 'angularfire2';
 import { environment } from '../environments/environment';
 import { AngularFirestoreModule } from 'angularfire2/firestore';
-import { ModalClientePage } from './modals/modal-cliente/modal-cliente.page';
 import { FormsModule } from '@angular/forms';
+import { ModalClientePage } from './modals/modal-cliente/modal-cliente.page';
+import { ModalProveedorPage } from './modals/modal-proveedor/modal-proveedor.page';
+import { ModalCategoriaPage } from './modals/modal-categoria/modal-categoria.page';
+import { ModalMaterialPage } from './modals/modal-material/modal-material.page';
 
 @NgModule({
-  declarations: [AppComponent,ModalClientePage],
-  entryComponents: [ModalClientePage],
+  declarations: [AppComponent,ModalClientePage, ModalProveedorPage,ModalCategoriaPage, ModalMaterialPage],
+  entryComponents: [ModalClientePage, ModalProveedorPage,ModalCategoriaPage, ModalMaterialPage],
   imports: [FormsModule, BrowserModule, IonicModule.forRoot(), AppRoutingModule,
     AngularFireModule.initializeApp(environment.firebase),
     AngularFirestoreModule,],

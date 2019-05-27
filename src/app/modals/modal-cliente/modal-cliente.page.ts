@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { NavParams, ModalController } from '@ionic/angular';
+import { NavParams, ModalController, ToastController } from '@ionic/angular';
 import { AngularFirestore } from 'angularfire2/firestore';
 import { Cliente } from 'src/app/models/cliente/cliente.inteface';
 
@@ -13,7 +13,7 @@ export class ModalClientePage implements OnInit {
   public clientList: any[];
   cli: Cliente;
 
-  constructor(public afs: AngularFirestore, public navParmt: NavParams, public modalCtrl: ModalController) {
+  constructor(public afs: AngularFirestore, public navParmt: NavParams, public modalCtrl: ModalController, public toastCtrl: ToastController) {
     this.cli = navParmt.data.cliente;
     console.log(navParmt.data.cliente);
     // this.afs.collection('clientes').valueChanges().subscribe(clients => {
@@ -33,6 +33,7 @@ export class ModalClientePage implements OnInit {
         .then((res) => {
           resolve(res);
           this.goBack();
+          this.mostrarToast();
         }, err => reject(err))
     })
   }
@@ -47,5 +48,13 @@ export class ModalClientePage implements OnInit {
     // });
 
     this.afs.collection("clientes").doc(this.cli.key + this.cli.nombre).delete();
+  }
+
+  async mostrarToast() {
+    const toast = await this.toastCtrl.create({
+      message: 'Cliente añadido.',
+      duration: 3000
+    });
+    toast.present();
   }
 }

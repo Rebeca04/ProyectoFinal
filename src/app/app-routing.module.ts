@@ -5,11 +5,15 @@ const routes: Routes = [
   { path: '', redirectTo: 'home', pathMatch: 'full' },
   { path: 'home', loadChildren: './home/home.module#HomePageModule' },
   { path: 'home/cliente', loadChildren: './cliente/cliente.module#ClientePageModule' },
-  { path: 'home/modal-cliente', loadChildren: './modals/modal-cliente/modal-cliente.module#ModalClientePageModule' },
-  { path: 'trabajo', loadChildren: './trabajo/trabajo.module#TrabajoPageModule' },
-  { path: 'material', loadChildren: './material/material.module#MaterialPageModule' },
-  { path: 'proveedor', loadChildren: './proveedor/proveedor.module#ProveedorPageModule' },
-  { path: 'servicio', loadChildren: './servicio/servicio.module#ServicioPageModule' }
+  { path: 'home/cliente/modal-cliente', loadChildren: './modals/modal-cliente/modal-cliente.module#ModalClientePageModule' },
+  { path: 'home/trabajo', loadChildren: './trabajo/trabajo.module#TrabajoPageModule' },
+  { path: 'home/material', loadChildren: './material/material.module#MaterialPageModule' },
+  { path: 'home/proveedor', loadChildren: './proveedor/proveedor.module#ProveedorPageModule' },
+  { path: 'home/servicio', loadChildren: './servicio/servicio.module#ServicioPageModule' },
+  { path: 'home/proveedor/modal-proveedor', loadChildren: './modals/modal-proveedor/modal-proveedor.module#ModalProveedorPageModule' },
+  { path: 'home/categoria/modal-categoria', loadChildren: './modals/modal-categoria/modal-categoria.module#ModalCategoriaPageModule' },
+  { path: 'home/categoria', loadChildren: './categoria/categoria.module#CategoriaPageModule' },
+  { path: 'home/material/modal-material', loadChildren: './modals/modal-material/modal-material.module#ModalMaterialPageModule' },
 ];
 
 @NgModule({

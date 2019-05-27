@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import * as firebase from 'firebase/app';
-import { AngularFirestore, AngularFirestoreCollection, AngularFirestoreDocument } from 'angularfire2/firestore';
+import { AngularFirestore } from 'angularfire2/firestore';
 import { Cliente } from '../models/cliente/cliente.inteface';
 import { NavController } from '@ionic/angular';
 import { ModalController } from '@ionic/angular';
@@ -27,14 +27,14 @@ export class ClientePage implements OnInit {
   public loadedGoalList: any[];
   public clientList: any[];
 
-  listaUsers: Array<[]>;
+  //listaUsers: Array<[]>;
 
   constructor(public afs: AngularFirestore, public navCtrl: NavController, public modalController: ModalController) {
   }
 
 
   filterList(evt) {
-    //Al ir borrando en el buscardor no va comparando si coincide
+    //Al ir borrando en el buscardor no va comparando si coincide y acutalizando
     //this.initializeItems();
     const searchTerm = evt.srcElement.value;
 
