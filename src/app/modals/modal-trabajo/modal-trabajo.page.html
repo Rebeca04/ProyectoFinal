@@ -1,0 +1,47 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-button fill="clear" (click)="goBack()">
+      <ion-icon color="danger" name="arrow-round-back"></ion-icon>
+    </ion-button>
+    <ion-title>{{tra.nombre}}</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="container_body">
+  <ion-card>
+    <ion-item>
+      <ion-label>Cliente</ion-label>
+      <ion-select [(ngModel)]="tra.cliente" placeholder="Elige uno">
+        <ion-item class="item_search" *ngFor="let c of cliList">
+          <ion-select-option value="{{c.nombre}}">{{c.nombre}}</ion-select-option>
+        </ion-item>
+      </ion-select>
+    </ion-item>
+    <ion-item>
+      <ion-label>Servicio</ion-label>
+      <ion-select [(ngModel)]="tra.servicio" placeholder="Elige uno">
+        <ion-item class="item_search" *ngFor="let s of serList">
+          <ion-select-option value="{{s.nombre}}">{{s.nombre}}</ion-select-option>
+        </ion-item>
+      </ion-select>
+    </ion-item>
+    <ion-item>
+      <ion-label>Estado</ion-label>
+      <ion-input [(ngModel)]="tra.descripcion" placeholder="Descripcion"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label>Fecha inicio</ion-label>
+      <ion-datetime value="{{tra.fechaInicio}}" [(ngModel)]="tra.fechaInicio" display-format="DD/MM/YYYY" picker-format="DD MMMM YYYY"  placeholder="Selecciona fecha"></ion-datetime>
+    </ion-item>
+    <ion-item>
+      <ion-label>Fecha fin</ion-label>
+      <ion-datetime value="{{tra.fechaFin}}" [(ngModel)]="tra.fechaFin" display-format="DD/MM/YYYY" picker-format="DD MMMM YYYY"  placeholder="Selecciona fecha"></ion-datetime>
+    </ion-item>
+  </ion-card>
+  <ion-button fill="clear" (click)="addUser(tra)">
+    <ion-icon size="large" color="success" name="add-circle"></ion-icon>
+  </ion-button>
+  <ion-button fill="clear" (click)="deleteButton()">
+    <ion-icon size="large" color="danger" name="trash"></ion-icon>
+  </ion-button>
+</ion-content>

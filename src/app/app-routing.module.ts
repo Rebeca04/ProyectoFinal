@@ -15,6 +15,7 @@ const routes: Routes = [
   { path: 'home/categoria', loadChildren: './categoria/categoria.module#CategoriaPageModule' },
   { path: 'home/material/modal-material', loadChildren: './modals/modal-material/modal-material.module#ModalMaterialPageModule' },
   { path: 'home/servicio/modal-servicio', loadChildren: './modals/modal-servicio/modal-servicio.module#ModalServicioPageModule' },
+  { path: 'modal-trabajo', loadChildren: './modals/modal-trabajo/modal-trabajo.module#ModalTrabajoPageModule' },
 ];
 
 @NgModule({

@@ -1,4 +1,13 @@
 import { Component, OnInit } from '@angular/core';
+import { NavController } from '@ionic/angular';
+import { AngularFirestore } from 'angularfire2/firestore';
+import { ModalController } from '@ionic/angular';
+import { Trabajo } from '../models/trabajo/trabajo.inteface';
+import { Cliente } from '../models/cliente/cliente.inteface';
+import { Servicio } from '../models/servicio/servicio.iteface';
+import { ModalTrabajoPage } from '../modals/modal-trabajo/modal-trabajo.page';
+import { empty } from 'rxjs';
+
 
 @Component({
   selector: 'app-trabajo',
@@ -7,9 +16,76 @@ import { Component, OnInit } from '@angular/core';
 })
 export class TrabajoPage implements OnInit {
 
-  constructor() { }
+  valueSearch: any;
+
+  tra: Trabajo;
+  cli: Cliente;
+  ser: Servicio;
+
+  public loadedGoalList: any[];
+  public trabList: any[];
+
+  constructor(public afs: AngularFirestore, public navCtrl: NavController, public modalController: ModalController) { }
 
   ngOnInit() {
+    this.afs.collection('trabajos').valueChanges().subscribe(trabajos => {
+      this.trabList = trabajos;
+    });
   }
 
+  filterList(evt) {
+    //Al ir borrando en el buscardor no va comparando si coincide y acutalizando
+    const searchTerm = evt.srcElement.value;
+
+    if (!searchTerm) {
+      this.afs.collection('trabajos').valueChanges().subscribe(trabajos => {
+        this.trabList = trabajos;
+      });
+      return;
+    }
+
+    this.trabList = this.trabList.filter(currentGoal => {
+      if (currentGoal.nombre && searchTerm) {
+        if (currentGoal.nombre.toLowerCase().indexOf(searchTerm.toLowerCase()) > -1) {
+          return true;
+        }
+        return;
+      }
+    });
+  }
+
+  addTrabajo() {
+    this.tra = {
+      cliente: this.cli,
+      servicio: this.ser,
+      estado: "",
+      fechaInicio: Date.now(),
+      fechaFin: "00/00/000"
+    };
+    this.presentModal()
+  }
+
+  deleteButton(trab: Trabajo) {
+    this.afs.collection("servicios").doc(trab.key + trab.cliente).delete();
+  }
+
+  elementSetect(elementSelected) {
+    this.valueSearch = elementSelected.nombre;
+    this.tra = elementSelected;
+    console.log(elementSelected);
+    this.presentModal()
+  }
+
+
+  goBack() {
+    this.navCtrl.navigateRoot("home");
+  }
+
+  async presentModal() {
+    const modal = await this.modalController.create({
+      component: ModalTrabajoPage,
+      componentProps: { trabajo: this.tra }
+    });
+    return await modal.present();
+  }
 }
