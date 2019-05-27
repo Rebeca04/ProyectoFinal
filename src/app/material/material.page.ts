@@ -59,7 +59,7 @@ export class MaterialPage implements OnInit {
     });
   }
 
-  addClient() {
+  addMaterial() {
     this.mat = {
       nombre: "",
       descripcion: "",
