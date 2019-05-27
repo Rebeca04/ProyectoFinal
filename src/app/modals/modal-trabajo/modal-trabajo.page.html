@@ -27,7 +27,12 @@
     </ion-item>
     <ion-item>
       <ion-label>Estado</ion-label>
-      <ion-input [(ngModel)]="tra.estado" placeholder="Descripcion"></ion-input>
+      <ion-select [(ngModel)]="tra.estado" placeholder="Pendiente">
+          <ion-select-option value="pendiente">Pendiente</ion-select-option>
+          <ion-select-option value="rechazada">Rechazada</ion-select-option>
+          <ion-select-option value="aceptada">Aceptada</ion-select-option>
+          <ion-select-option value="finalizada">Finalizada</ion-select-option>
+      </ion-select>
     </ion-item>
     <ion-item>
       <ion-label>Fecha inicio</ion-label>
