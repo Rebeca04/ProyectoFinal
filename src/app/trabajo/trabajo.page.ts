@@ -59,8 +59,8 @@ export class TrabajoPage implements OnInit {
       cliente: this.cli,
       servicio: this.ser,
       estado: "",
-      fechaInicio: Date.now(),
-      fechaFin: "00/00/000"
+      fechaInicio: "00/00/0000",
+      fechaFin: "00/00/0000"
     };
     this.presentModal()
   }

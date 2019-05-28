@@ -9,7 +9,8 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content>
+<ion-content class="container_body">
+    <ion-button (click)="addCat()">Añadir categorias</ion-button>
   <div class="container_header">
     <ion-searchbar showcancelbutton="" (ionInput)="filterList($event)"></ion-searchbar>
     <ion-button block fill="clear" (click)="addMaterial()">
@@ -28,5 +29,4 @@
       </ion-item-options>
     </ion-item-sliding>
   </ion-list>
-  <ion-button (click)="addCat()">Añadir categorias</ion-button>
 </ion-content>
