@@ -29,6 +29,9 @@ export class ServicioPage implements OnInit {
     });
   }
 
+  goBack() {
+    this.navCtrl.navigateRoot("home");
+  }
   
   filterList(evt) {
     //Al ir borrando en el buscardor no va comparando si coincide y acutalizando
@@ -69,11 +72,6 @@ export class ServicioPage implements OnInit {
     this.serv = elementSelected;
     console.log(elementSelected);
     this.presentModal()
-  }
-
-
-  goBack() {
-    this.navCtrl.navigateRoot("home");
   }
 
   async presentModal() {

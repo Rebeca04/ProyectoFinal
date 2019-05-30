@@ -32,6 +32,19 @@ export class ClientePage implements OnInit {
   constructor(public afs: AngularFirestore, public navCtrl: NavController, public modalController: ModalController) {
   }
 
+  ngOnInit() {
+    this.afs.collection('clientes').valueChanges().subscribe(clients => {
+      this.clientList = clients;
+    });
+  }
+
+  goBack() {
+    this.navCtrl.navigateRoot("home");
+  }
+  
+  // initializeItems(): void {
+  //   this.clientList = this.loadedGoalList;
+  // }
 
   filterList(evt) {
     //Al ir borrando en el buscardor no va comparando si coincide y acutalizando
@@ -55,14 +68,6 @@ export class ClientePage implements OnInit {
     });
   }
 
-  ngOnInit() {
-    this.afs.collection('clientes').valueChanges().subscribe(clients => {
-      this.clientList = clients;
-    });
-  }
-  initializeItems(): void {
-    this.clientList = this.loadedGoalList;
-  }
   addClient() {
     this.cli = {
       nombre: "",
@@ -81,11 +86,6 @@ export class ClientePage implements OnInit {
     this.cli = elementSelected;
     console.log(elementSelected);
     this.presentModal()
-  }
-
-
-  goBack() {
-    this.navCtrl.navigateRoot("home");
   }
 
   async presentModal() {

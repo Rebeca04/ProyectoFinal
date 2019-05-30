@@ -34,8 +34,8 @@ export class MaterialPage implements OnInit {
     });
   }
 
-  addCat(){
-    this.navCtrl.navigateRoot("/home/categoria");
+  goBack() {
+    this.navCtrl.navigateRoot("home");
   }
 
   filterList(evt) {
@@ -59,6 +59,10 @@ export class MaterialPage implements OnInit {
     });
   }
 
+  addCat(){
+    this.navCtrl.navigateRoot("/home/categoria");
+  }
+
   addMaterial() {
     this.mat = {
       nombre: "",
@@ -80,11 +84,6 @@ export class MaterialPage implements OnInit {
     this.mat = elementSelected;
     console.log(elementSelected);
     this.presentModal()
-  }
-
-
-  goBack() {
-    this.navCtrl.navigateRoot("home");
   }
 
   async presentModal() {

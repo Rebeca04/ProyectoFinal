@@ -1,7 +1,7 @@
 <ion-header>
   <ion-toolbar>
     <ion-button fill="clear" (click)="goBack()">
-      <ion-icon color="danger" name="arrow-round-back"></ion-icon>
+      <ion-icon size="large" color="danger" name="arrow-round-back"></ion-icon>
     </ion-button>
     <ion-title>{{tra.nombre}}</ion-title>
   </ion-toolbar>
@@ -10,7 +10,7 @@
 <ion-content class="container_body">
   <ion-card>
     <ion-item>
-      <ion-label>Cliente</ion-label>
+      <ion-label position="stacked">Cliente</ion-label>
       <ion-select [disabled]="!disabledOption" [(ngModel)]="tra.cliente" placeholder="Elige uno">
         <ion-item class="item_search" *ngFor="let c of cliList">
           <ion-select-option value="{{c.nombre}}">{{c.nombre}}</ion-select-option>
@@ -18,7 +18,7 @@
       </ion-select>
     </ion-item>
     <ion-item>
-      <ion-label>Servicio</ion-label>
+      <ion-label position="stacked">Servicio</ion-label>
       <ion-select [disabled]="!disabledOption" [(ngModel)]="tra.servicio" placeholder="Elige uno">
         <ion-item class="item_search" *ngFor="let s of serList">
           <ion-select-option value="{{s.nombre}}">{{s.nombre}}</ion-select-option>
@@ -26,7 +26,7 @@
       </ion-select>
     </ion-item>
     <ion-item>
-      <ion-label>Estado</ion-label>
+      <ion-label position="stacked">Estado</ion-label>
       <ion-select [disabled]="!disabledOption" [(ngModel)]="tra.estado" placeholder="Pendiente" (ionChange)="onChange($event)" value="tra.estado">
           <ion-select-option value="pendiente">Pendiente</ion-select-option>
           <ion-select-option value="rechazada">Rechazada</ion-select-option>
@@ -34,15 +34,16 @@
           <ion-select-option value="finalizada">Finalizada</ion-select-option>
       </ion-select>
     </ion-item>
-    <!-- No se muestra la fecha de inicio y fin pero se guarda automáticamente al aceptar y finalizar -->
+    <!-----------------------------------------No se muestra la fecha de inicio y fin pero se guarda automáticamente al aceptar y finalizar------------------------------------------------------->
     <!-- <ion-item [disabled]="!disabledOption" [class.hide]="!statusAccept">
-      <ion-label>Fecha inicio</ion-label>
+      <ion-label position="stacked">Fecha inicio</ion-label>
       <ion-datetime value="{{tra.fechaInicio}}" [(ngModel)]="tra.fechaInicio" display-format="DD/MM/YYYY" picker-format="DD MMMM YYYY"  placeholder="Selecciona fecha"></ion-datetime>
     </ion-item> 
     <ion-item [disabled]="!disabledOption" [class.hide]="!statusFinal">
-      <ion-label>Fecha fin</ion-label>
+      <ion-label position="stacked">Fecha fin</ion-label>
       <ion-datetime value="{{tra.fechaFin}}" [(ngModel)]="tra.fechaFin" display-format="DD/MM/YYYY" picker-format="DD MMMM YYYY"  placeholder="Selecciona fecha"></ion-datetime>
     </ion-item> -->
+    <!-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------->
   </ion-card>
   <ion-button [disabled]="!disabledOption" [class.hide]="!statusAccept">
     Materiales

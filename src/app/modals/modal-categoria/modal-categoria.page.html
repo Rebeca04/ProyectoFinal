@@ -1,7 +1,7 @@
 <ion-header>
     <ion-toolbar>
       <ion-button fill="clear" (click)="goBack()">
-        <ion-icon color="danger" name="arrow-round-back"></ion-icon>
+        <ion-icon size="large" color="danger" name="arrow-round-back"></ion-icon>
       </ion-button>
       <ion-title>{{cat.nombre}}</ion-title>
     </ion-toolbar>
@@ -11,11 +11,11 @@
   <ion-content class="container_body">
     <ion-card>
       <ion-item>
-        <ion-label>Nombre</ion-label>
+        <ion-label position="stacked">Nombre</ion-label>
         <ion-input [(ngModel)]="cat.nombre" placeholder="Calderas"></ion-input>
       </ion-item>
       <ion-item>
-        <ion-label>Descripcion</ion-label>
+        <ion-label position="stacked">Descripcion</ion-label>
         <ion-input [(ngModel)]="cat.descripcion" placeholder="Sin tuberias"></ion-input>
       </ion-item>
     </ion-card>

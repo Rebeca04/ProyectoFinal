@@ -6,7 +6,6 @@ import { Trabajo } from '../models/trabajo/trabajo.inteface';
 import { Cliente } from '../models/cliente/cliente.inteface';
 import { Servicio } from '../models/servicio/servicio.iteface';
 import { ModalTrabajoPage } from '../modals/modal-trabajo/modal-trabajo.page';
-import { empty } from 'rxjs';
 
 
 @Component({
@@ -31,6 +30,10 @@ export class TrabajoPage implements OnInit {
     this.afs.collection('trabajos').valueChanges().subscribe(trabajos => {
       this.trabList = trabajos;
     });
+  }
+
+  goBack() {
+    this.navCtrl.navigateRoot("home");
   }
 
   filterList(evt) {
@@ -58,7 +61,7 @@ export class TrabajoPage implements OnInit {
     this.tra = {
       cliente: this.cli,
       servicio: this.ser,
-      estado: "",
+      estado: "pendiente",
       fechaInicio: "00/00/0000",
       fechaFin: "00/00/0000"
     };
@@ -74,11 +77,6 @@ export class TrabajoPage implements OnInit {
     this.tra = elementSelected;
     console.log(elementSelected);
     this.presentModal()
-  }
-
-
-  goBack() {
-    this.navCtrl.navigateRoot("home");
   }
 
   async presentModal() {

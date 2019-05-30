@@ -30,6 +30,10 @@ export class ProveedorPage implements OnInit {
     });
   }
 
+  goBack() {
+    this.navCtrl.navigateRoot("home");
+  }
+
   filterList(evt) {
     //Al ir borrando en el buscardor no va comparando si coincide y actualizando
     const searchTerm = evt.srcElement.value;
@@ -70,11 +74,6 @@ export class ProveedorPage implements OnInit {
     this.pro = elementSelected;
     console.log(elementSelected);
     this.presentModal()
-  }
-
-
-  goBack() {
-    this.navCtrl.navigateRoot("home");
   }
 
   async presentModal() {

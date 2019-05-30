@@ -28,6 +28,10 @@ export class CategoriaPage implements OnInit {
     });
   }
 
+  goBack() {
+    this.navCtrl.navigateRoot("/home/material");
+  }
+  
   filterList(evt) {
     //Al ir borrando en el buscardor no va comparando si coincide y actualizando
     const searchTerm = evt.srcElement.value;
@@ -68,10 +72,6 @@ export class CategoriaPage implements OnInit {
     this.presentModal()
   }
 
-
-  goBack() {
-    this.navCtrl.navigateRoot("/home/material");
-  }
 
   async presentModal() {
     const modal = await this.modalController.create({

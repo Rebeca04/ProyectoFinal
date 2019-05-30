@@ -15,7 +15,7 @@ export class ModalClientePage implements OnInit {
 
   constructor(public afs: AngularFirestore, public navParmt: NavParams, public modalCtrl: ModalController, public toastCtrl: ToastController) {
     this.cli = navParmt.data.cliente;
-    console.log(navParmt.data.cliente);
+    // console.log(navParmt.data.cliente);
     // this.afs.collection('clientes').valueChanges().subscribe(clients => {
     //   this.clientList = clients;
     // });
