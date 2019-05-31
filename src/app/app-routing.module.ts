@@ -16,6 +16,8 @@ const routes: Routes = [
   { path: 'home/material/modal-material', loadChildren: './modals/modal-material/modal-material.module#ModalMaterialPageModule' },
   { path: 'home/servicio/modal-servicio', loadChildren: './modals/modal-servicio/modal-servicio.module#ModalServicioPageModule' },
   { path: 'modal-trabajo', loadChildren: './modals/modal-trabajo/modal-trabajo.module#ModalTrabajoPageModule' },
+  { path: 'material-servicio', loadChildren: './material-servicio/material-servicio.module#MaterialServicioPageModule' },
+  { path: 'modal-material-servicio', loadChildren: './modals/modal-material-servicio/modal-material-servicio.module#ModalMaterialServicioPageModule' },
 ];
 
 @NgModule({
