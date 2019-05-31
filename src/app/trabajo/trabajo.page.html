@@ -1,7 +1,7 @@
 <ion-header>
     <ion-toolbar>
       <ion-button fill="clear" (click)="goBack()">
-        <ion-icon size="large" color="danger" name="arrow-round-back"></ion-icon>
+          <i class="fa fa-arrow-left goBack"></i>
       </ion-button>
       <ion-title class="header">
         Trabajo
@@ -17,15 +17,18 @@
         </ion-button>
       </div>
       <ion-list class="list_search">
-        <ion-item-sliding class="item_search" *ngFor="let item of trabList">
-          <ion-item (click)="elementSetect(item)">
-            <p>{{ item.cliente }} {{ item.key }}</p>
-          </ion-item>
-          <ion-item-options side="end">
-            <ion-button class="button_trash" color="danger" (click)="deleteButton(item)">
-              <ion-icon size="large" name="trash"></ion-icon>
-            </ion-button>
-          </ion-item-options>
-        </ion-item-sliding>
+          <ion-item-group class="item_search" *ngFor="let estado of estaList">
+              <ion-item-divider color="light">{{estado}}</ion-item-divider>
+              <ion-item-sliding class="item_search" *ngFor="let item of trabList">
+                <ion-item *ngIf="item.estado == estado.toLowerCase()" (click)="elementSetect(item)">
+                    <p>{{ item.cliente }} {{ item.key }}</p>
+                </ion-item>
+                <ion-item-options side="end">
+                  <ion-button class="button_trash" color="danger" (click)="deleteButton(item)">
+                    <ion-icon size="large" name="trash"></ion-icon>
+                  </ion-button>
+                </ion-item-options>
+              </ion-item-sliding>
+            </ion-item-group>
       </ion-list>
     </ion-content>

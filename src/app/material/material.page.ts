@@ -25,12 +25,18 @@ export class MaterialPage implements OnInit {
 
   public loadedGoalList: any[];
   public matList: any[];
+  public catList: any[];
 
   constructor(public afs: AngularFirestore, public navCtrl: NavController, public modalController: ModalController) { }
 
   ngOnInit() {
     this.afs.collection('materiales').valueChanges().subscribe(mats => {
       this.matList = mats;
+    });
+
+    
+    this.afs.collection('categorias').valueChanges().subscribe(cats => {
+      this.catList = cats;
     });
   }
 

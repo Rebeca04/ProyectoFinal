@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { NavParams, ModalController, ToastController } from '@ionic/angular';
+import { NavParams, ModalController, ToastController, AlertController } from '@ionic/angular';
 import { AngularFirestore } from 'angularfire2/firestore';
 import { Servicio } from 'src/app/models/servicio/servicio.iteface';
 import { Cliente } from 'src/app/models/cliente/cliente.inteface';
@@ -20,12 +20,18 @@ export class ModalTrabajoPage implements OnInit {
   statusAccept: boolean = false;
   statusFinal: boolean = false;
   disabledOption: boolean = true;
+  statusPend: boolean = true;
+  statusRech: boolean = true;
+  statusAcep: boolean = true;
+  statusFin: boolean = true;
 
   public traList: any[];
   public serList: any[];
   public cliList: any[];
 
-  constructor(public afs: AngularFirestore, public navParmt: NavParams, public modalCtrl: ModalController, public toastCtrl: ToastController) {
+  selectState: any;
+
+  constructor(public afs: AngularFirestore, public navParmt: NavParams, public modalCtrl: ModalController, public toastCtrl: ToastController, public alertController: AlertController) {
     this.tra = navParmt.data.trabajo;
   }
 
@@ -39,35 +45,58 @@ export class ModalTrabajoPage implements OnInit {
     this.afs.collection('servicios').valueChanges().subscribe(servicios => {
       this.serList = servicios;
     });
-  }
-  //Select-state
-  onChange(select) {
-    if (select.target.value == '' || select.target.value == 'pendiente') {
+
+    if (this.tra.estado == '' || this.tra.estado == 'pendiente') {
       this.statusAccept = false;
-      console.log("false")
-    }
-    else if (select.target.value == 'aceptada') {
-      console.log("true")
+      this.statusPend = true;
+      this.statusRech = true;
+      this.statusAcep = true;
+      this.statusFin = false;
+    } else if (this.tra.estado == 'aceptada') {
       this.statusAccept = true;
-      this.tra.fechaInicio = formatDate(new Date(), 'dd/MM/yyyy hh:mm:ss', 'en');
-    } else if (select.target.value == 'finalizada') {
-      this.statusAccept = true;
-      this.tra.fechaFin = formatDate(new Date(), 'dd/MM/yyyy hh:mm:ss', 'en');
-    } else if (select.target.value == 'rechazada') {
+      this.statusPend = false;
+      this.statusRech = true;
+      this.statusAcep = true;
+      this.statusFin = true;
+    } else if (this.tra.estado == 'finalizada') {
+      this.statusAccept = false;
+      this.statusPend = false;
+      this.statusRech = false;
+      this.statusAcep = false;
+      this.statusFin = true;
+    } else if (this.tra.estado == 'rechazada') {
       this.disabledOption = false;
     }
   }
-
-  goBack() {
-    this.modalCtrl.dismiss();
+  //Select-state
+  onChange(select) {
+    this.selectState= select.target.value;
   }
 
-  addUser(value) {
+  goBack() {
+    this.presentAlertConfirm();
+  }
+
+  addUser() {
+    if (this.selectState == '' || this.selectState == 'pendiente') {
+      this.statusAccept = false;
+      console.log("false")
+    }
+    else if (this.selectState == 'aceptada') {
+      console.log("true")
+      this.statusAccept = true;
+      this.tra.fechaInicio = formatDate(new Date(), 'dd/MM/yyyy hh:mm:ss', 'en');
+    } else if (this.selectState == 'finalizada') {
+      this.statusAccept = true;
+      this.tra.fechaFin = formatDate(new Date(), 'dd/MM/yyyy hh:mm:ss', 'en');
+    } else if (this.selectState == 'rechazada') {
+      this.disabledOption = false;
+    }
     return new Promise<any>((resolve, reject) => {
-      this.afs.collection('/trabajos').doc(value.key + value.cliente).set(value)
+      this.afs.collection('/trabajos').doc(this.tra.key + this.tra.cliente).set(this.tra)
         .then((res) => {
           resolve(res);
-          this.goBack();
+          this.modalCtrl.dismiss();
           this.mostrarToast();
         }, err => reject(err))
     })
@@ -83,5 +112,31 @@ export class ModalTrabajoPage implements OnInit {
       duration: 3000
     });
     toast.present();
+  }
+
+  async presentAlertConfirm() {
+    const alert = await this.alertController.create({
+      header: 'Salir',
+      message: '¿Quiere salir sin guardar?',
+      buttons: [
+        {
+          text: 'Salir',
+          role: 'cancel',
+          cssClass: 'secondary',
+          handler: () => {
+            this.modalCtrl.dismiss();
+            console.log('Salir sin guardar');
+          }
+        }, {
+          text: 'Guardar',
+          handler: () => {
+            this.addUser();
+            console.log('Guarado');
+          }
+        }
+      ]
+    });
+
+    await alert.present();
   }
 }

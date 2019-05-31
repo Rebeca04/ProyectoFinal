@@ -1,7 +1,7 @@
 <ion-header>
   <ion-toolbar>
     <ion-button fill="clear" (click)="goBack()">
-      <ion-icon size="large" color="danger" name="arrow-round-back"></ion-icon>
+      <i class="fa fa-arrow-left goBack"></i>
     </ion-button>
     <ion-title class="header">
       Material
@@ -10,7 +10,7 @@
 </ion-header>
 
 <ion-content class="container_body">
-    <ion-button (click)="addCat()">Añadir categorias</ion-button>
+  <ion-button (click)="addCat()">Añadir categorias</ion-button>
   <div class="container_header">
     <ion-searchbar showcancelbutton="" (ionInput)="filterList($event)"></ion-searchbar>
     <ion-button block fill="clear" (click)="addMaterial()">
@@ -18,15 +18,18 @@
     </ion-button>
   </div>
   <ion-list class="list_search">
-    <ion-item-sliding class="item_search" *ngFor="let item of matList">
-      <ion-item (click)="elementSetect(item)">
-        <p>{{ item.nombre }} {{ item.key }}</p>
-      </ion-item>
-      <ion-item-options side="end">
-        <ion-button class="button_trash" color="danger" (click)="deleteButton(item)">
-          <ion-icon size="large" name="trash"></ion-icon>
-        </ion-button>
-      </ion-item-options>
-    </ion-item-sliding>
+    <ion-item-group class="item_search" *ngFor="let categoria of catList">
+      <ion-item-divider color="light">{{categoria.nombre}}</ion-item-divider>
+      <ion-item-sliding class="item_search" *ngFor="let material of matList">
+        <ion-item *ngIf="material.categoria == categoria.nombre" (click)="elementSetect(material)">
+          <p>{{ material.nombre }} {{ material.key }}</p>
+        </ion-item>
+        <ion-item-options side="end">
+          <ion-button class="button_trash" color="danger" (click)="deleteButton(material)">
+            <ion-icon size="large" name="trash"></ion-icon>
+          </ion-button>
+        </ion-item-options>
+      </ion-item-sliding>
+    </ion-item-group>
   </ion-list>
 </ion-content>

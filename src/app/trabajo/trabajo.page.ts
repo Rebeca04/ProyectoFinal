@@ -24,11 +24,15 @@ export class TrabajoPage implements OnInit {
   public loadedGoalList: any[];
   public trabList: any[];
 
-  constructor(public afs: AngularFirestore, public navCtrl: NavController, public modalController: ModalController) { }
+  public estaList: Array<any>;
+
+  constructor(public afs: AngularFirestore, public navCtrl: NavController, public modalController: ModalController) { 
+  }
 
   ngOnInit() {
     this.afs.collection('trabajos').valueChanges().subscribe(trabajos => {
       this.trabList = trabajos;
+      this.estaList = ['Pendiente', 'Aceptada', 'Finalizada', 'Rechazada'];
     });
   }
 
