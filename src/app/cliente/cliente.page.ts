@@ -23,9 +23,11 @@ export class ClientePage implements OnInit {
     telefono: 0,
     direccion: ""
   };
+  idCli: any;
 
   public loadedGoalList: any[];
   public clientList: any[];
+  numCli:number ;
 
   //listaUsers: Array<[]>;
 
@@ -74,6 +76,13 @@ export class ClientePage implements OnInit {
       telefono: 0,
       direccion: ""
     };
+    this.clientList.forEach(c => {
+      if (c == 'idCli') {
+        this.idCli = c.id + 1;
+        c.id = c.id + 1;
+      }
+    });
+    console.log(this.clientList);
     this.presentModal()
   }
 
@@ -89,6 +98,7 @@ export class ClientePage implements OnInit {
   }
 
   async presentModal() {
+    ///let idCli = this.clientList.length + 1;
     const modal = await this.modalController.create({
       component: ModalClientePage,
       componentProps: { cliente: this.cli }

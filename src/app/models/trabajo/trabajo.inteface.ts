@@ -1,5 +1,6 @@
 import { Cliente } from '../cliente/cliente.inteface';
 import { Servicio } from '../servicio/servicio.iteface';
+import { MaterialServicio } from '../material-servicio/material-servicio.inteface';
 
 export interface Trabajo {
     key?: string;
@@ -8,4 +9,5 @@ export interface Trabajo {
     estado: string;
     fechaInicio: any;
     fechaFin: any;
+    materiales: MaterialServicio[]
 }

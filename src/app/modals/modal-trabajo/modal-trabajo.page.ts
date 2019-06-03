@@ -5,6 +5,7 @@ import { Servicio } from 'src/app/models/servicio/servicio.iteface';
 import { Cliente } from 'src/app/models/cliente/cliente.inteface';
 import { Trabajo } from 'src/app/models/trabajo/trabajo.inteface';
 import { formatDate } from '@angular/common';
+import { ModalMaterialServicioPage } from '../modal-material-servicio/modal-material-servicio.page';
 
 @Component({
   selector: 'app-modal-trabajo',
@@ -31,7 +32,7 @@ export class ModalTrabajoPage implements OnInit {
 
   selectState: any;
 
-  constructor(public afs: AngularFirestore, public navParmt: NavParams, public modalCtrl: ModalController, public toastCtrl: ToastController, public alertController: AlertController) {
+  constructor(public afs: AngularFirestore, public navParmt: NavParams, public modalCtrl: ModalController, public modalController: ModalController, public toastCtrl: ToastController, public alertController: AlertController) {
     this.tra = navParmt.data.trabajo;
   }
 
@@ -85,14 +86,15 @@ export class ModalTrabajoPage implements OnInit {
     else if (this.selectState == 'aceptada') {
       console.log("true")
       this.statusAccept = true;
-      this.tra.fechaInicio = formatDate(new Date(), 'dd/MM/yyyy hh:mm:ss', 'en');
+      this.tra.fechaInicio = formatDate(new Date(), 'dd-MM-yyyy hh:mm:ss', 'en');
     } else if (this.selectState == 'finalizada') {
       this.statusAccept = true;
-      this.tra.fechaFin = formatDate(new Date(), 'dd/MM/yyyy hh:mm:ss', 'en');
+      this.tra.fechaFin = formatDate(new Date(), 'dd-MM-yyyy hh:mm:ss', 'en');
     } else if (this.selectState == 'rechazada') {
       this.disabledOption = false;
     }
     return new Promise<any>((resolve, reject) => {
+      let dateTime:string =formatDate(new Date(), 'dd-MM-yyyy hh:mm:ss', 'en')
       this.afs.collection('/trabajos').doc(this.tra.key + this.tra.cliente).set(this.tra)
         .then((res) => {
           resolve(res);
@@ -104,6 +106,15 @@ export class ModalTrabajoPage implements OnInit {
 
   deleteButton() {
     this.afs.collection("trabajos").doc(this.tra.key + this.tra.cliente).delete();
+  }
+
+    
+  async addModalMaterial() {
+    const modal = await this.modalController.create({
+      component: ModalMaterialServicioPage,
+      componentProps: { trabajo : this.tra }
+    });
+    return await modal.present();
   }
 
   async mostrarToast() {

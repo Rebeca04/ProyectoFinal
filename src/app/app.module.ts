@@ -20,10 +20,11 @@ import { ModalCategoriaPage } from './modals/modal-categoria/modal-categoria.pag
 import { ModalMaterialPage } from './modals/modal-material/modal-material.page';
 import { ModalServicioPage } from './modals/modal-servicio/modal-servicio.page';
 import { ModalTrabajoPage } from './modals/modal-trabajo/modal-trabajo.page';
+import { ModalMaterialServicioPage } from './modals/modal-material-servicio/modal-material-servicio.page';
 
 @NgModule({
-  declarations: [AppComponent,ModalClientePage, ModalProveedorPage,ModalCategoriaPage, ModalMaterialPage, ModalServicioPage, ModalTrabajoPage],
-  entryComponents: [ModalClientePage, ModalProveedorPage,ModalCategoriaPage, ModalMaterialPage, ModalServicioPage, ModalTrabajoPage],
+  declarations: [AppComponent,ModalClientePage, ModalProveedorPage,ModalCategoriaPage, ModalMaterialPage, ModalServicioPage, ModalTrabajoPage, ModalMaterialServicioPage],
+  entryComponents: [ModalClientePage, ModalProveedorPage,ModalCategoriaPage, ModalMaterialPage, ModalServicioPage, ModalTrabajoPage, ModalMaterialServicioPage],
   imports: [FormsModule, BrowserModule, IonicModule.forRoot(), AppRoutingModule,
     AngularFireModule.initializeApp(environment.firebase),
     AngularFirestoreModule,],

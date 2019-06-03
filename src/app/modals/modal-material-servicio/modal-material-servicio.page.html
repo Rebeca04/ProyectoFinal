@@ -1,9 +1,23 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>modalMaterialServicio</ion-title>
+    <ion-button fill="clear" (click)="presentAlertConfirm()">
+      <i class="fa fa-arrow-left goBack"></i>
+    </ion-button>
+    <ion-title>Materiales</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
 
+  <ion-item>
+    <ion-label position="stacked">Direccion</ion-label>
+    <ion-select multiple="true" [(ngModel)]="tra.materiales" placeholder="Elige uno">
+      <ion-item class="item_search" *ngFor="let item of matList">
+        <ion-select-option value="{{item.nombre}}">{{item.nombre}}</ion-select-option>
+      </ion-item>
+    </ion-select>
+  </ion-item>
+  <ion-button fill="clear" (click)="addMat()">
+    <ion-icon size="large" color="success" name="add-circle"></ion-icon>
+  </ion-button>
 </ion-content>

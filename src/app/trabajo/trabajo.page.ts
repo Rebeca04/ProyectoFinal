@@ -6,6 +6,7 @@ import { Trabajo } from '../models/trabajo/trabajo.inteface';
 import { Cliente } from '../models/cliente/cliente.inteface';
 import { Servicio } from '../models/servicio/servicio.iteface';
 import { ModalTrabajoPage } from '../modals/modal-trabajo/modal-trabajo.page';
+import { MaterialServicio } from '../models/material-servicio/material-servicio.inteface';
 
 
 @Component({
@@ -23,6 +24,7 @@ export class TrabajoPage implements OnInit {
 
   public loadedGoalList: any[];
   public trabList: any[];
+  public MatList: MaterialServicio[];
 
   public estaList: Array<any>;
 
@@ -67,7 +69,8 @@ export class TrabajoPage implements OnInit {
       servicio: this.ser,
       estado: "pendiente",
       fechaInicio: "00/00/0000",
-      fechaFin: "00/00/0000"
+      fechaFin: "00/00/0000",
+      materiales: this.MatList
     };
     this.presentModal()
   }

@@ -24,12 +24,12 @@ export class ModalCategoriaPage implements OnInit {
     this.modalCtrl.dismiss();
   }
 
-  addUser(value) {
+  addUser() {
     return new Promise<any>((resolve, reject) => {
-      this.afs.collection('/categorias').doc(value.key + value.nombre).set(value)
+      this.afs.collection('/categorias').doc(this.cat.key + this.cat.nombre).set(this.cat)
         .then((res) => {
           resolve(res);
-          this.goBack();
+          this.modalCtrl.dismiss();
           this.mostrarToast();
         }, err => reject(err))
     })
