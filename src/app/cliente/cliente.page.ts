@@ -101,7 +101,7 @@ export class ClientePage implements OnInit {
     ///let idCli = this.clientList.length + 1;
     const modal = await this.modalController.create({
       component: ModalClientePage,
-      componentProps: { cliente: this.cli }
+      componentProps: { cliente: this.cli , listaCli: this.clientList }
     });
     return await modal.present();
   }

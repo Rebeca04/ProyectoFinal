@@ -94,7 +94,6 @@ export class ModalTrabajoPage implements OnInit {
       this.disabledOption = false;
     }
     return new Promise<any>((resolve, reject) => {
-      let dateTime:string =formatDate(new Date(), 'dd-MM-yyyy hh:mm:ss', 'en')
       this.afs.collection('/trabajos').doc(this.tra.key + this.tra.cliente).set(this.tra)
         .then((res) => {
           resolve(res);

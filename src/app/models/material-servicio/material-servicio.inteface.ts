@@ -5,5 +5,4 @@ export interface MaterialServicio {
     key?: string;
     cantidad: number;
     material: Material;
-    servicio: Servicio;
 }

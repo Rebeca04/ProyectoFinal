@@ -21,11 +21,8 @@ export class ModalMaterialServicioPage implements OnInit {
   ser: Servicio;
   cli: Cliente;
   selectMat: Array<any>;
-  public traList: any[];
-  public serList: any[];
-  public cliList: any[];
   public matList: any[];
-  public matSerList: MaterialServicio[];
+  public matSerList: any[];
 
   constructor(public afs: AngularFirestore, public navParmt: NavParams, public alertController: AlertController, public modalCtrl: ModalController) {
     this.tra = navParmt.data.trabajo;
@@ -38,13 +35,16 @@ export class ModalMaterialServicioPage implements OnInit {
   }
 
   onChange(select) {
-    //this.selectMat = select.target.value;
+    this.matServ.material = select.target.value;
   }
   goBack() {
     this.modalCtrl.dismiss();
   }
 
   addUser() {
+    this.tra.materiales.map(serv => {
+      serv = this.matServ
+    });
     return new Promise<any>((resolve, reject) => {
       this.afs.collection('/trabajos').doc(this.tra.key + this.tra.cliente).set(this.tra)
         .then((res) => {
@@ -71,6 +71,7 @@ export class ModalMaterialServicioPage implements OnInit {
           handler: () => {
             this.addUser();
             console.log('Guarado');
+            this.modalCtrl.dismiss();
           }
         }
       ]

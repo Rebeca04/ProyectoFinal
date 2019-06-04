@@ -9,13 +9,25 @@
 
 <ion-content>
 
-  <ion-item>
-    <ion-label position="stacked">Direccion</ion-label>
-    <ion-select multiple="true" [(ngModel)]="tra.materiales" placeholder="Elige uno">
+    <!-- <ion-list [(ngModel)]="tra.materiales">
+
+    </ion-list> -->
+    <!-- <ion-select multiple="true" placeholder="Elige uno">
       <ion-item class="item_search" *ngFor="let item of matList">
         <ion-select-option value="{{item.nombre}}">{{item.nombre}}</ion-select-option>
       </ion-item>
+    </ion-select> -->
+  <ion-item>
+    <ion-label position="stacked">Material</ion-label>
+    <ion-select placeholder="Elige uno">
+      <ion-item class="item_search" *ngFor="let item of matList">
+        <ion-select-option value="{{item}}">{{item.nombre}}</ion-select-option>
+      </ion-item>
     </ion-select>
+  </ion-item>
+  <ion-item>
+    <ion-label position="stacked">Cantidad</ion-label>
+    <ion-input [(ngModel)]="matServ.cantidad"></ion-input>
   </ion-item>
   <ion-button fill="clear" (click)="addMat()">
     <ion-icon size="large" color="success" name="add-circle"></ion-icon>
