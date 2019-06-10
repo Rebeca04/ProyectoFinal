@@ -13,10 +13,15 @@ export class ModalClientePage implements OnInit {
   public clientList: any[];
   cli: Cliente;
   exist: boolean = false;
+  isUpdate: boolean;
+  isDelete: boolean;
+  toastMessage: string;
 
   constructor(public afs: AngularFirestore, public navParmt: NavParams, public modalCtrl: ModalController, public toastCtrl: ToastController, public alertController: AlertController) {
     this.cli = navParmt.data.cliente;
     this.clientList = navParmt.data.listaCli;
+    this.isUpdate = navParmt.data.isUpdt;
+    console.log(this.isUpdate)
     // console.log(navParmt.data.cliente);
     // this.afs.collection('clientes').valueChanges().subscribe(clients => {
     //   this.clientList = clients;
@@ -31,6 +36,17 @@ export class ModalClientePage implements OnInit {
     this.modalCtrl.dismiss();
   }
 
+  updateUser(value){
+    return new Promise<any>((resolve, reject) => {
+      this.afs.collection('/clientes').doc(value.key + value.nombre).set(value)
+        .then((res) => {
+          resolve(res);
+          this.goBack();
+          this.mostrarToast();
+        }, err => reject(err))
+      })
+  }
+
   addUser(value) {
     this.ifExist();
     if (!this.exist) {
@@ -42,6 +58,8 @@ export class ModalClientePage implements OnInit {
             this.mostrarToast();
           }, err => reject(err))
       })
+    } else {
+        this.presentAlert();
     }
 
   }
@@ -53,7 +71,6 @@ export class ModalClientePage implements OnInit {
   ifExist(){
     this.clientList.forEach(cli => {
       if (cli.nombre == this.cli.nombre) {
-        this.presentAlert();
         this.exist = true;
       }
     });
@@ -70,8 +87,14 @@ export class ModalClientePage implements OnInit {
   }
 
   async mostrarToast() {
+    // Meter el nombre del cliente --> this.toastMessage="Cliente " + this.cli.nombre + " modificado"
+    if (this.isUpdate) {
+      this.toastMessage="Cliente modificado"
+    } else if(!this.isUpdate) {
+      this.toastMessage="Cliente añadido"
+    }
     const toast = await this.toastCtrl.create({
-      message: 'Cliente añadido.',
+      message: this.toastMessage,
       duration: 3000
     });
     toast.present();

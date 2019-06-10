@@ -28,6 +28,9 @@ export class TrabajoPage implements OnInit {
 
   public estaList: Array<any>;
 
+  
+  isUpdate: boolean = false;
+
   constructor(public afs: AngularFirestore, public navCtrl: NavController, public modalController: ModalController) { 
   }
 
@@ -72,6 +75,7 @@ export class TrabajoPage implements OnInit {
       fechaFin: "00/00/0000",
       materiales: null
     };
+    this.isUpdate = false;
     this.presentModal()
   }
 
@@ -83,13 +87,14 @@ export class TrabajoPage implements OnInit {
     this.valueSearch = elementSelected.nombre;
     this.tra = elementSelected;
     console.log(elementSelected);
+    this.isUpdate = true;
     this.presentModal()
   }
 
   async presentModal() {
     const modal = await this.modalController.create({
       component: ModalTrabajoPage,
-      componentProps: { trabajo: this.tra }
+      componentProps: { trabajo: this.tra, isUpdt: this.isUpdate }
     });
     return await modal.present();
   }

@@ -22,8 +22,11 @@
       <ion-input [(ngModel)]="cli.direccion" placeholder="Calle, Nº"></ion-input>
     </ion-item>
   </ion-card>
-  <ion-button fill="clear" (click)="addUser(cli)">
+  <ion-button [class.hide]="isUpdate" fill="clear" (click)="addUser(cli)">
     <ion-icon size="large" color="success" name="add-circle"></ion-icon>
+  </ion-button>
+  <ion-button [class.hide]="!isUpdate" fill="clear" (click)="updateUser(cli)">
+    <ion-icon size="large" color="secondary" name="add-circle"></ion-icon>
   </ion-button>
   <ion-button fill="clear" (click)="deleteButton()">
     <ion-icon size="large" color="danger" name="trash"></ion-icon>

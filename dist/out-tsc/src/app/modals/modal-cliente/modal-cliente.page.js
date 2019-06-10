@@ -10,8 +10,10 @@ var ModalClientePage = /** @class */ (function () {
         this.toastCtrl = toastCtrl;
         this.alertController = alertController;
         this.exist = false;
+        this.isUpdate = false;
         this.cli = navParmt.data.cliente;
         this.clientList = navParmt.data.listaCli;
+        this.isUpdate = navParmt.data.isUpdt;
         // console.log(navParmt.data.cliente);
         // this.afs.collection('clientes').valueChanges().subscribe(clients => {
         //   this.clientList = clients;
@@ -23,6 +25,9 @@ var ModalClientePage = /** @class */ (function () {
     };
     ModalClientePage.prototype.goBack = function () {
         this.modalCtrl.dismiss();
+    };
+    ModalClientePage.prototype.updateUser = function () {
+        console.log("isUpdate");
     };
     ModalClientePage.prototype.addUser = function (value) {
         var _this = this;
@@ -37,6 +42,9 @@ var ModalClientePage = /** @class */ (function () {
                 }, function (err) { return reject(err); });
             });
         }
+        else {
+            this.presentAlert();
+        }
     };
     ModalClientePage.prototype.deleteButton = function () {
         this.afs.collection("clientes").doc(this.cli.key + this.cli.nombre).delete();
@@ -45,7 +53,6 @@ var ModalClientePage = /** @class */ (function () {
         var _this = this;
         this.clientList.forEach(function (cli) {
             if (cli.nombre == _this.cli.nombre) {
-                _this.presentAlert();
                 _this.exist = true;
             }
         });

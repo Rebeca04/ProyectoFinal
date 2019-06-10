@@ -27,7 +27,8 @@ export class ClientePage implements OnInit {
 
   public loadedGoalList: any[];
   public clientList: any[];
-  numCli:number ;
+  numCli: number;
+  isUpdate: boolean = false;
 
   //listaUsers: Array<[]>;
 
@@ -43,7 +44,7 @@ export class ClientePage implements OnInit {
   goBack() {
     this.navCtrl.navigateRoot("home");
   }
-  
+
   // initializeItems(): void {
   //   this.clientList = this.loadedGoalList;
   // }
@@ -82,6 +83,7 @@ export class ClientePage implements OnInit {
         c.id = c.id + 1;
       }
     });
+    this.isUpdate = false;
     console.log(this.clientList);
     this.presentModal()
   }
@@ -94,6 +96,7 @@ export class ClientePage implements OnInit {
     this.valueSearch = elementSelected.nombre;
     this.cli = elementSelected;
     console.log(elementSelected);
+    this.isUpdate = true;
     this.presentModal()
   }
 
@@ -101,8 +104,9 @@ export class ClientePage implements OnInit {
     ///let idCli = this.clientList.length + 1;
     const modal = await this.modalController.create({
       component: ModalClientePage,
-      componentProps: { cliente: this.cli , listaCli: this.clientList }
+      componentProps: { cliente: this.cli, listaCli: this.clientList, isUpdt: this.isUpdate }
     });
+    console.log(this.isUpdate)
     return await modal.present();
   }
 

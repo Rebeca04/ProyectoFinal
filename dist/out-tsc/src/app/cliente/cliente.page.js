@@ -16,6 +16,7 @@ var ClientePage = /** @class */ (function () {
             telefono: 0,
             direccion: ""
         };
+        this.isUpdate = false;
     }
     ClientePage.prototype.ngOnInit = function () {
         var _this = this;
@@ -73,6 +74,7 @@ var ClientePage = /** @class */ (function () {
         this.cli = elementSelected;
         console.log(elementSelected);
         this.presentModal();
+        this.isUpdate = true;
     };
     ClientePage.prototype.presentModal = function () {
         return tslib_1.__awaiter(this, void 0, void 0, function () {
@@ -81,7 +83,7 @@ var ClientePage = /** @class */ (function () {
                 switch (_a.label) {
                     case 0: return [4 /*yield*/, this.modalController.create({
                             component: ModalClientePage,
-                            componentProps: { cliente: this.cli, listaCli: this.clientList }
+                            componentProps: { cliente: this.cli, listaCli: this.clientList, isUpdt: this.isUpdate }
                         })];
                     case 1:
                         modal = _a.sent();

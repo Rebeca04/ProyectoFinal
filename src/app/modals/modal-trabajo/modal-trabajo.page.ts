@@ -32,8 +32,14 @@ export class ModalTrabajoPage implements OnInit {
 
   selectState: any;
 
+  exist: boolean = false;
+  isUpdate: boolean;
+  toastMessage: string;
+
+
   constructor(public afs: AngularFirestore, public navParmt: NavParams, public modalCtrl: ModalController, public modalController: ModalController, public toastCtrl: ToastController, public alertController: AlertController) {
     this.tra = navParmt.data.trabajo;
+    this.isUpdate = navParmt.data.isUpdt;
   }
 
   ngOnInit() {
@@ -71,57 +77,95 @@ export class ModalTrabajoPage implements OnInit {
   }
   //Select-state
   onChange(select) {
-    this.selectState= select.target.value;
+    this.selectState = select.target.value;
   }
 
   goBack() {
     this.presentAlertConfirm();
   }
 
-  addUser() {
-    if (this.selectState == '' || this.selectState == 'pendiente') {
-      this.statusAccept = false;
-      console.log("false")
-    }
-    else if (this.selectState == 'aceptada') {
-      console.log("true")
-      this.statusAccept = true;
-      this.tra.fechaInicio = formatDate(new Date(), 'dd-MM-yyyy hh:mm:ss', 'en');
-    } else if (this.selectState == 'finalizada') {
-      this.statusAccept = true;
-      this.tra.fechaFin = formatDate(new Date(), 'dd-MM-yyyy hh:mm:ss', 'en');
-    } else if (this.selectState == 'rechazada') {
-      this.disabledOption = false;
-    }
+  updateUser(value) {
     return new Promise<any>((resolve, reject) => {
-      this.afs.collection('/trabajos').doc(this.tra.key + this.tra.cliente).set(this.tra)
+      this.afs.collection('/clientes').doc(value.key + value.nombre).set(value)
         .then((res) => {
           resolve(res);
-          this.modalCtrl.dismiss();
+          this.goBack();
           this.mostrarToast();
         }, err => reject(err))
     })
+  }
+
+  addUser() {
+    this.ifExist();
+    if (!this.exist) {
+      if (this.selectState == '' || this.selectState == 'pendiente') {
+        this.statusAccept = false;
+        console.log("false")
+      }
+      else if (this.selectState == 'aceptada') {
+        console.log("true")
+        this.statusAccept = true;
+        this.tra.fechaInicio = formatDate(new Date(), 'dd-MM-yyyy hh:mm:ss', 'en');
+      } else if (this.selectState == 'finalizada') {
+        this.statusAccept = true;
+        this.tra.fechaFin = formatDate(new Date(), 'dd-MM-yyyy hh:mm:ss', 'en');
+      } else if (this.selectState == 'rechazada') {
+        this.disabledOption = false;
+      }
+      return new Promise<any>((resolve, reject) => {
+        this.afs.collection('/trabajos').doc(this.tra.key + this.tra.cliente).set(this.tra)
+          .then((res) => {
+            resolve(res);
+            this.modalCtrl.dismiss();
+            this.mostrarToast();
+          }, err => reject(err))
+      })
+    } else {
+      this.presentAlert();
+    }
   }
 
   deleteButton() {
     this.afs.collection("trabajos").doc(this.tra.key + this.tra.cliente).delete();
   }
 
-    
+  ifExist() {
+    // this.traList.forEach(tr => {
+    //   if (tr.nombre == this.tra.nombre) {
+    //     this.exist = true;
+    //   }
+    // });
+  }
+
   async addModalMaterial() {
     const modal = await this.modalController.create({
       component: ModalMaterialServicioPage,
-      componentProps: { trabajo : this.tra }
+      componentProps: { trabajo: this.tra }
     });
     return await modal.present();
   }
 
   async mostrarToast() {
+    if (this.isUpdate) {
+      this.toastMessage = "Trabajo modificado"
+    } else if (!this.isUpdate) {
+      this.toastMessage = "Trabajo añadido"
+    }
     const toast = await this.toastCtrl.create({
-      message: 'Trabajo añadido.',
+      message: this.toastMessage,
       duration: 3000
     });
     toast.present();
+  }
+
+  async presentAlert() {
+    const alert = await this.alertController.create({
+      header: 'Error',
+      subHeader: 'No se pudo guardar',
+      message: 'Ya hay un cliente con ese nombre.',
+      buttons: ['OK']
+    });
+    await alert.present();
   }
 
   async presentAlertConfirm() {
