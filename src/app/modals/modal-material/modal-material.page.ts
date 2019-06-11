@@ -1,9 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { NavParams, ModalController, ToastController  } from '@ionic/angular';
+import { NavParams, ModalController, ToastController, NavController  } from '@ionic/angular';
 import { AngularFirestore } from 'angularfire2/firestore';
 import { Material } from 'src/app/models/material/material.inteface';
 import { Categoria } from 'src/app/models/categoria/categoria.inteface';
 import { Proveedor } from 'src/app/models/proveedor/proveedor.inteface';
+import { ModalCategoriaPage } from '../modal-categoria/modal-categoria.page';
 
 @Component({
   selector: 'app-modal-material',
@@ -19,7 +20,7 @@ export class ModalMaterialPage implements OnInit {
   cat: Categoria;
   prov: Proveedor;
 
-  constructor(public afs: AngularFirestore, public navParmt: NavParams, public modalCtrl: ModalController, public toastCtrl: ToastController) {
+  constructor(public afs: AngularFirestore, public navParmt: NavParams, public modalController:ModalController , public modalCtrl: ModalController, public toastCtrl: ToastController) {
     this.mat = navParmt.data.material;
   }
 
@@ -38,6 +39,19 @@ export class ModalMaterialPage implements OnInit {
   goBack() {
     this.modalCtrl.dismiss();
   }
+
+
+    async addCat() {
+      this.cat = {
+        nombre: "",
+        descripcion: ""
+      };
+      const modal = await this.modalController.create({
+        component: ModalCategoriaPage,
+        componentProps: { cat: this.cat }
+      });
+      return await modal.present();
+    }
 
   addUser(value) {
     return new Promise<any>((resolve, reject) => {

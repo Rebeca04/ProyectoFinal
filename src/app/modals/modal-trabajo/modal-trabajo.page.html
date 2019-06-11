@@ -3,7 +3,7 @@
         <ion-button fill="clear" (click)="goBack()">
             <i class="fa fa-arrow-left goBack"></i>
         </ion-button>
-        <ion-title>{{tra.nombre}}</ion-title>
+        <ion-title>{{tra.cliente}}</ion-title>
     </ion-toolbar>
 </ion-header>
 
@@ -48,8 +48,11 @@
     <ion-button [disabled]="!disabledOption" [class.hide]="!statusAccept" (click)="addModalMaterial()">
         Materiales
     </ion-button>
-    <ion-button fill="clear" (click)="addUser()">
+    <ion-button [class.hide]="isUpdate" fill="clear" (click)="addUser()">
         <ion-icon size="large" color="success" name="add-circle"></ion-icon>
+    </ion-button>
+    <ion-button [class.hide]="!isUpdate" fill="clear" (click)="updateUser()">
+        <ion-icon size="large" color="secondary" name="add-circle"></ion-icon>
     </ion-button>
     <ion-button fill="clear" (click)="deleteButton()">
         <ion-icon size="large" color="danger" name="trash"></ion-icon>

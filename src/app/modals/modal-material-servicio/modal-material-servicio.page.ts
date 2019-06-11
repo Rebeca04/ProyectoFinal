@@ -15,7 +15,7 @@ import { formatDate } from '@angular/common';
 })
 export class ModalMaterialServicioPage implements OnInit {
 
-  matServ: MaterialServicio
+  matServ: MaterialServicio;
   tra: Trabajo;
   mat: Material;
   ser: Servicio;
@@ -35,22 +35,31 @@ export class ModalMaterialServicioPage implements OnInit {
   }
 
   onChange(select) {
-    this.matServ.material = select.target.value;
+    this.matServ.material.nombre = select.target.value;
   }
   goBack() {
-    this.modalCtrl.dismiss();
-  }
-
-  addUser() {
-    this.tra.materiales.map(serv => {
-      serv = this.matServ
-    });
+    // this.tra.materiales = this.matSerList;
+    // Guardar la lista de materiales en la base de datos de trabajo
     return new Promise<any>((resolve, reject) => {
       this.afs.collection('/trabajos').doc(this.tra.key + this.tra.cliente).set(this.tra)
         .then((res) => {
           resolve(res);
+          this.modalCtrl.dismiss();
         }, err => reject(err))
     })
+  }
+
+  addMat() {
+    // this.matSerList.push(this.matServ);
+    console.log(this.matServ.material)
+    this.tra.materiales.push(this.matServ);
+
+    // return new Promise<any>((resolve, reject) => {
+    //   this.afs.collection('/trabajos').doc(this.tra.key + this.tra.cliente).set(this.tra)
+    //     .then((res) => {
+    //       resolve(res);
+    //     }, err => reject(err))
+    // })
   }
 
   async presentAlertConfirm() {
@@ -69,7 +78,7 @@ export class ModalMaterialServicioPage implements OnInit {
         }, {
           text: 'Guardar',
           handler: () => {
-            this.addUser();
+            this.addMat();
             console.log('Guarado');
             this.modalCtrl.dismiss();
           }

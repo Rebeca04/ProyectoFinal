@@ -65,10 +65,6 @@ export class MaterialPage implements OnInit {
     });
   }
 
-  addCat(){
-    this.navCtrl.navigateRoot("/home/categoria");
-  }
-
   addMaterial() {
     this.mat = {
       nombre: "",

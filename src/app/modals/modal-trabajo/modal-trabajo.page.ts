@@ -84,13 +84,13 @@ export class ModalTrabajoPage implements OnInit {
     this.presentAlertConfirm();
   }
 
-  updateUser(value) {
+  updateUser() {
     return new Promise<any>((resolve, reject) => {
-      this.afs.collection('/clientes').doc(value.key + value.nombre).set(value)
+      this.afs.collection('/trabajos').doc(this.tra.key + this.tra.cliente).set(this.tra)
         .then((res) => {
           resolve(res);
           this.goBack();
-          this.mostrarToast();
+          // this.mostrarToast();
         }, err => reject(err))
     })
   }
@@ -100,10 +100,8 @@ export class ModalTrabajoPage implements OnInit {
     if (!this.exist) {
       if (this.selectState == '' || this.selectState == 'pendiente') {
         this.statusAccept = false;
-        console.log("false")
       }
       else if (this.selectState == 'aceptada') {
-        console.log("true")
         this.statusAccept = true;
         this.tra.fechaInicio = formatDate(new Date(), 'dd-MM-yyyy hh:mm:ss', 'en');
       } else if (this.selectState == 'finalizada') {
@@ -179,13 +177,11 @@ export class ModalTrabajoPage implements OnInit {
           cssClass: 'secondary',
           handler: () => {
             this.modalCtrl.dismiss();
-            console.log('Salir sin guardar');
           }
         }, {
           text: 'Guardar',
           handler: () => {
             this.addUser();
-            console.log('Guarado');
           }
         }
       ]

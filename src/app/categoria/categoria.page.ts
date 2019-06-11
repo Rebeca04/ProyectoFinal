@@ -29,7 +29,7 @@ export class CategoriaPage implements OnInit {
   }
 
   goBack() {
-    this.navCtrl.navigateRoot("/home/material");
+    this.navCtrl.navigateRoot("/home");
   }
   
   filterList(evt) {
