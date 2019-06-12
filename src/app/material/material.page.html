@@ -12,9 +12,9 @@
 <ion-content class="container_body">
     <div class="container_header">
         <ion-searchbar showcancelbutton="" (ionInput)="filterList($event)"></ion-searchbar>
-        <ion-button block fill="clear" (click)="addMaterial()">
-            <ion-icon size="large" color="primary" name="add-circle"></ion-icon>
-        </ion-button>
+        <!-- <ion-button block fill="clear"> -->
+        <ion-icon size="large" color="primary" name="add-circle" (click)="addMaterial()"></ion-icon>
+        <!-- </ion-button> -->
     </div>
     <ion-list class="list_search">
         <ion-item-group class="item_search" *ngFor="let categoria of catList">

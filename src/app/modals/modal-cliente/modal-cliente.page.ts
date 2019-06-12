@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { NavParams, ModalController, ToastController, AlertController } from '@ionic/angular';
 import { AngularFirestore } from 'angularfire2/firestore';
 import { Cliente } from 'src/app/models/cliente/cliente.inteface';
+import { resolve } from 'url';
 
 @Component({
   selector: 'app-modal-cliente',
@@ -65,7 +66,19 @@ export class ModalClientePage implements OnInit {
   }
 
   deleteButton() {
-    this.afs.collection("clientes").doc(this.cli.key + this.cli.nombre).delete();
+    this.afs.collection("clientes").doc(this.cli.key + this.cli.nombre).delete()
+    .then(() => {
+      this.goBack();
+      this.deleteToast();
+    });
+  }
+
+  async deleteToast() {
+    const toast = await this.toastCtrl.create({
+      message: "Cliente " + this.cli.nombre + " eliminado.",
+      duration: 3000
+    });
+    toast.present();
   }
 
   ifExist(){
@@ -89,9 +102,9 @@ export class ModalClientePage implements OnInit {
   async mostrarToast() {
     // Meter el nombre del cliente --> this.toastMessage="Cliente " + this.cli.nombre + " modificado"
     if (this.isUpdate) {
-      this.toastMessage="Cliente modificado"
+      this.toastMessage="Cliente modificado."
     } else if(!this.isUpdate) {
-      this.toastMessage="Cliente añadido"
+      this.toastMessage="Cliente añadido."
     }
     const toast = await this.toastCtrl.create({
       message: this.toastMessage,

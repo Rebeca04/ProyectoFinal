@@ -25,10 +25,10 @@
     <!-- <ion-button fill="clear"> -->
     <ion-icon [class.hide]="isUpdate" size="large" color="success" name="add-circle" (click)="addUser(cli)"></ion-icon>
     <!-- </ion-button> -->
-    <ion-button [class.hide]="!isUpdate" fill="clear" (click)="updateUser(cli)">
-        <ion-icon size="large" color="secondary" name="add-circle"></ion-icon>
-    </ion-button>
-    <ion-button fill="clear" (click)="deleteButton()">
-        <ion-icon size="large" color="danger" name="trash"></ion-icon>
-    </ion-button>
+    <!-- <ion-button fill="clear"> -->
+    <ion-icon [class.hide]="!isUpdate" size="large" color="secondary" name="add-circle" (click)="updateUser(cli)"></ion-icon>
+    <!-- </ion-button> -->
+    <!-- <ion-button fill="clear"> -->
+    <ion-icon size="large" color="danger" name="trash" (click)="deleteButton()"></ion-icon>
+    <!-- </ion-button> -->
 </ion-content>
