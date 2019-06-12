@@ -78,9 +78,9 @@ export class ModalClientePage implements OnInit {
   
   async presentAlert() {
     const alert = await this.alertController.create({
-      header: 'Error',
-      subHeader: 'No se pudo guardar',
-      message: 'Ya hay un cliente con ese nombre.',
+      header: 'Error:',
+      // subHeader: 'No se pudo guardar',
+      message: 'ya existe un cliente con ese nombre.',
       buttons: ['OK']
     });
     await alert.present();
