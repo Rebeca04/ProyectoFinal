@@ -1,8 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { NavParams, ModalController, ToastController, AlertController } from '@ionic/angular';
+import { NavParams, ModalController, ToastController, AlertController, LoadingController } from '@ionic/angular';
 import { AngularFirestore } from 'angularfire2/firestore';
 import { Cliente } from 'src/app/models/cliente/cliente.inteface';
-import { resolve } from 'url';
 
 @Component({
   selector: 'app-modal-cliente',
@@ -18,7 +17,7 @@ export class ModalClientePage implements OnInit {
   isDelete: boolean;
   toastMessage: string;
 
-  constructor(public afs: AngularFirestore, public navParmt: NavParams, public modalCtrl: ModalController, public toastCtrl: ToastController, public alertController: AlertController) {
+  constructor(public loadingController:LoadingController , public afs: AngularFirestore, public navParmt: NavParams, public modalCtrl: ModalController, public toastCtrl: ToastController, public alertController: AlertController) {
     this.cli = navParmt.data.cliente;
     this.clientList = navParmt.data.listaCli;
     this.isUpdate = navParmt.data.isUpdt;
@@ -111,5 +110,13 @@ export class ModalClientePage implements OnInit {
       duration: 3000
     });
     toast.present();
+  }
+
+  async presentLoading() {
+    const load = await this.loadingController.create({
+      message: 'Please wait...',
+      spinner: 'crescent',
+    });
+    return await load.present();
   }
 }

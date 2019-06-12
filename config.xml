@@ -2,7 +2,7 @@
 <widget id="io.ionic.starter" version="0.0.1" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
     <name>Turbo Tuberías</name>
     <description>Arreglos e instalaciones.</description>
-    <author email="hi@turbotuberías.com" href="http://ionicframework.com/">Señora Tuberías</author>
+    <author email="hi@turbotuberias.com" href="http://ionicframework.com/">Señora Tuberías</author>
     <content src="index.html" />
     <access origin="*" />
     <allow-intent href="http://*/*" />
