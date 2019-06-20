@@ -15,6 +15,8 @@ import { formatDate } from '@angular/common';
 })
 export class ModalMaterialServicioPage implements OnInit {
 
+  public cantidad:string;
+  public material:string;
   matServ: MaterialServicio;
   tra: Trabajo;
   mat: Material;
@@ -22,7 +24,7 @@ export class ModalMaterialServicioPage implements OnInit {
   cli: Cliente;
   selectMat: Array<any>;
   public matList: any[];
-  public matSerList: any[];
+  public matSerList: Array<any>;
 
   constructor(public afs: AngularFirestore, public navParmt: NavParams, public alertController: AlertController, public modalCtrl: ModalController) {
     this.tra = navParmt.data.trabajo;
@@ -32,27 +34,42 @@ export class ModalMaterialServicioPage implements OnInit {
     this.afs.collection('materiales').valueChanges().subscribe(mate => {
       this.matList = mate;
     });
+    
+    this.afs.collection('materialServicio').valueChanges().subscribe(mateSer => {
+      this.matSerList = mateSer;
+    });
   }
 
   onChange(select) {
-    this.matServ.material.nombre = select.target.value;
+    // this.matSerList = select.target.value;
+    console.log(select)
   }
   goBack() {
     // this.tra.materiales = this.matSerList;
     // Guardar la lista de materiales en la base de datos de trabajo
+    // return new Promise<any>((resolve, reject) => {
+    //   this.afs.collection('/trabajos').doc(this.tra.key + this.tra.cliente).set(this.tra)
+    //     .then((res) => {
+    //       resolve(res);
+    //       this.modalCtrl.dismiss();
+    //     }, err => reject(err))
+    // })
+  }
+
+  addMat() {
+    // this.matSerList.push(this.matServ);
+    // this.matServ.material = this.material;
+    // this.matServ.cantidad = this.cantidad;
+    // this.matSerList = [this.matServ];
+    this.tra.materiales = this.tra.materiales + "(" + this.material + " " + this.cantidad + "), ";
+    // this.tra.materiales.push(this.matServ);
     return new Promise<any>((resolve, reject) => {
-      this.afs.collection('/trabajos').doc(this.tra.key + this.tra.cliente).set(this.tra)
+      this.afs.collection('/materialServicio').doc(this.tra.key + this.tra.cliente).set(this.tra)
         .then((res) => {
           resolve(res);
           this.modalCtrl.dismiss();
         }, err => reject(err))
     })
-  }
-
-  addMat() {
-    // this.matSerList.push(this.matServ);
-    console.log(this.matServ.material)
-    this.tra.materiales.push(this.matServ);
 
     // return new Promise<any>((resolve, reject) => {
     //   this.afs.collection('/trabajos').doc(this.tra.key + this.tra.cliente).set(this.tra)

@@ -73,7 +73,7 @@ export class TrabajoPage implements OnInit {
       estado: "pendiente",
       fechaInicio: "00/00/0000",
       fechaFin: "00/00/0000",
-      materiales: null
+      materiales: ""
     };
     this.isUpdate = false;
     this.presentModal()

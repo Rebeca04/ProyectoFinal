@@ -19,15 +19,15 @@
     </ion-select> -->
     <ion-item>
         <ion-label position="stacked">Material</ion-label>
-        <ion-select placeholder="Elige uno">
+        <ion-select [(ngModel)]="material" placeholder="Elige uno" >
             <ion-item class="item_search" *ngFor="let item of matList">
-                <ion-select-option value="{{item.nombre}}">{{item.nombre}}</ion-select-option>
+                <ion-select-option  value="{{item.nombre}}">{{item.nombre}}</ion-select-option>
             </ion-item>
         </ion-select>
     </ion-item>
     <ion-item>
         <ion-label position="stacked">Cantidad</ion-label>
-        <!-- <ion-input [(ngModel)]="matServ.cantidad"></ion-input> -->
+        <ion-input [(ngModel)]="cantidad"></ion-input>
     </ion-item>
     <ion-button fill="clear" (click)="addMat()">
         <ion-icon size="large" color="success" name="add-circle"></ion-icon>

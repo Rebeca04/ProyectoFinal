@@ -31,6 +31,8 @@ export class ModalTrabajoPage implements OnInit {
   public traList: any[];
   public serList: any[];
   public cliList: any[];
+  public matSerList: any[];
+  key: any;
 
   selectState: any;
 
@@ -50,6 +52,12 @@ export class ModalTrabajoPage implements OnInit {
   }
 
   ngOnInit() {
+    //cargar trabajos
+    this.afs.collection('trabajos').valueChanges().subscribe(tra => {
+      this.traList = tra;
+    });
+
+
     //cargar clientes
     this.afs.collection('clientes').valueChanges().subscribe(clientes => {
       this.cliList = clientes;
@@ -58,6 +66,11 @@ export class ModalTrabajoPage implements OnInit {
     //cargar servicios
     this.afs.collection('servicios').valueChanges().subscribe(servicios => {
       this.serList = servicios;
+    });
+
+    //cargar material-servicios
+    this.afs.collection('materialServicio').valueChanges().subscribe(mateSer => {
+      this.matSerList = mateSer;
     });
 
     if (this.tra.estado == '' || this.tra.estado == 'pendiente') {
@@ -96,8 +109,8 @@ export class ModalTrabajoPage implements OnInit {
       this.afs.collection('/trabajos').doc(this.tra.key + this.tra.cliente).set(this.tra)
         .then((res) => {
           resolve(res);
-          this.goBack();
-          // this.mostrarToast();
+          this.modalCtrl.dismiss();
+          this.mostrarToast();
         }, err => reject(err))
     })
   }
@@ -117,8 +130,10 @@ export class ModalTrabajoPage implements OnInit {
       } else if (this.selectState == 'rechazada') {
         this.disabledOption = false;
       }
+    this.key=this.traList.length + 1;
+    this.tra.key= this.key;
       return new Promise<any>((resolve, reject) => {
-        this.afs.collection('/trabajos').doc(this.tra.key + this.tra.cliente).set(this.tra)
+        this.afs.collection('/trabajos').doc(this.key + this.tra.cliente).set(this.tra)
           .then((res) => {
             resolve(res);
             this.modalCtrl.dismiss();
@@ -205,7 +220,7 @@ export class ModalTrabajoPage implements OnInit {
         {    
           columns: [
             {
-              image: 'data:../../assets/cards/clients.png',
+              
               fit: [100, 100]
             },
           [

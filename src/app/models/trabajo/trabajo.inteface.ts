@@ -5,9 +5,9 @@ import { MaterialServicio } from '../material-servicio/material-servicio.intefac
 export interface Trabajo {
     key?: string;
     cliente: Cliente;
-    servicio: Servicio;
+    servicio: any;
     estado: string;
     fechaInicio: any;
     fechaFin: any;
-    materiales: MaterialServicio[]
+    materiales: any
 }
