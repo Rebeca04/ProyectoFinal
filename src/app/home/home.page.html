@@ -4,31 +4,32 @@
             Turbo Tuberías
         </ion-title>
     </ion-toolbar> -->
-    <img src="../../assets/super_logo.png" style="display: block; margin: 8px auto">
+    <img src="../../assets/super_logo.png" style="display: block; margin: 8px auto; max-width: 25% !important;">
 </ion-header>
 
 <ion-content class="container">
     <!-- <a href="tel:671977175">
         <ion-icon size="large" color="primary" name="call" (click)="addTrabajo()"></ion-icon>
     </a> -->
-    <ion-card color="primary" class="card-style cardTrabajo" routerLink="/home/trabajo" routerDirection="forward" (click)="pushTrabajo()">
+    <ion-card color="primary" class="card-style cardTrabajo" routerLink="/home/trabajo" routerDirection="forward" >
         <i class="fas fa-toolbox fa-7x"></i>
         <ion-label class="card-title">Trabajos</ion-label>
     </ion-card>
-    <ion-card color="primary" class="card-style cardMaterial" (click)="pushMaterial()">
+    <ion-card color="primary" class="card-style cardMaterial" routerLink="/home/material" routerDirection="forward">
         <i class="fas fa-tools fa-7x"></i>
         <ion-label class="card-title">Materiales</ion-label>
     </ion-card>
-    <ion-card color="primary" class="card-style cardCliente" (click)="pushCliente()">
+    <ion-card color="primary" class="card-style cardCliente" routerLink="/home/cliente" routerDirection="forward">
         <i class="fas fa-users fa-7x"></i>
         <ion-label class="card-title">Clientes</ion-label>
     </ion-card>
-    <ion-card color="primary" class="card-style cardProveedor" (click)="pushProveedor()">
+    <ion-card color="primary" class="card-style cardProveedor" routerLink="/home/proveedor" routerDirection="forward">
         <i class="fas fa-shipping-fast fa-7x"></i>
         <ion-label class="card-title">Proveedores</ion-label>
     </ion-card>
-    <ion-card color="primary" class="card-style cardServicio" (click)="pushServicio()">
+    <ion-card color="primary" class="card-style cardServicio" routerLink="/home/servicio" routerDirection="forward">
         <i class="fas fa-cogs fa-7x"></i>
         <ion-label class="card-title">Servicios</ion-label>
     </ion-card>
+    <i class="fas fa-question-circle fa-2x infoApp" (click)="infoToast()"></i>
 </ion-content>

@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import * as firebase from 'firebase/app';
 import { AngularFirestore, AngularFirestoreCollection, AngularFirestoreDocument } from 'angularfire2/firestore';
 import { ClientePage } from '../cliente/cliente.page';
-import { NavController } from '@ionic/angular';
+import { NavController, AlertController } from '@ionic/angular';
 
 
 @Component({
@@ -15,26 +15,45 @@ export class HomePage {
 
   clientesPag:any= ClientePage;
 
-  constructor(public navCtrl: NavController) {  }
+  constructor(public navCtrl: NavController, public alertController: AlertController) {  }
 
   ngOnInit() { }
-  pushTrabajo(){
-    this.navCtrl.navigateRoot("/home/trabajo");
+
+  async infoToast() {
+    const alert = await this.alertController.create({
+      header: 'Información',
+      message: 'En esta aplicación se podrá guardar y gestionar los datos necesarios para el funcionamiento de la empresa. Para cualquier duda, mirar las instrucciones que se encuentran en el manual de usuario.',
+      buttons: [
+        {
+          text: 'Aceptar',
+          role: 'cancel',
+          cssClass: 'secondary',
+          handler: () => {
+          }
+        }
+      ]
+    });
+
+    await alert.present();
   }
 
-  pushMaterial(){
-    this.navCtrl.navigateRoot("/home/material");
-  }
+  // pushTrabajo(){
+  //   this.navCtrl.navigateRoot("/home/trabajo");
+  // }
 
-  pushCliente(){
-    this.navCtrl.navigateRoot("/home/cliente");
-  }
+  // pushMaterial(){
+  //   this.navCtrl.navigateRoot("/home/material");
+  // }
 
-  pushProveedor(){
-    this.navCtrl.navigateRoot("/home/proveedor");
-  }
+  // pushCliente(){
+  //   this.navCtrl.navigateRoot("/home/cliente");
+  // }
 
-  pushServicio(){
-    this.navCtrl.navigateRoot("/home/servicio");
-  }
+  // pushProveedor(){
+  //   this.navCtrl.navigateRoot("/home/proveedor");
+  // }
+
+  // pushServicio(){
+  //   this.navCtrl.navigateRoot("/home/servicio");
+  // }
 }

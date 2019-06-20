@@ -13,6 +13,10 @@ import { ModalCategoriaPage } from '../modal-categoria/modal-categoria.page';
 })
 export class ModalMaterialPage implements OnInit {
   
+
+  isUpdate: boolean;
+  toastMessage: string;
+
   public matList: any[];
   public catList: any[];
   public provList: any[];
@@ -22,6 +26,7 @@ export class ModalMaterialPage implements OnInit {
 
   constructor(public afs: AngularFirestore, public navParmt: NavParams, public modalController:ModalController , public modalCtrl: ModalController, public toastCtrl: ToastController) {
     this.mat = navParmt.data.material;
+    this.isUpdate = navParmt.data.isUpdt;
   }
 
   ngOnInit() {
@@ -64,13 +69,29 @@ export class ModalMaterialPage implements OnInit {
     })
   }
 
+  updateUser() {
+    return new Promise<any>((resolve, reject) => {
+      this.afs.collection('/materiales').doc(this.mat+ this.mat.nombre).set(this.mat)
+        .then((res) => {
+          resolve(res);
+          this.modalCtrl.dismiss();
+          this.mostrarToast();
+        }, err => reject(err))
+    })
+  }
+
   deleteButton() {
     this.afs.collection("materiales").doc(this.mat.key + this.mat.nombre).delete();
   }
 
   async mostrarToast() {
+    if (this.isUpdate) {
+      this.toastMessage = "Material modificado"
+    } else if (!this.isUpdate) {
+      this.toastMessage = "Material añadido"
+    }
     const toast = await this.toastCtrl.create({
-      message: 'Material añadido.',
+      message: this.toastMessage,
       duration: 3000
     });
     toast.present();

@@ -8,6 +8,8 @@ import { formatDate } from '@angular/common';
 import { ModalMaterialServicioPage } from '../modal-material-servicio/modal-material-servicio.page';
 import * as pdfmake from 'pdfmake/build/pdfmake';
 import * as pdfFonts from 'pdfmake/build/vfs_fonts';
+import { writeFile } from 'fs';
+
 
 @Component({
   selector: 'app-modal-trabajo',
@@ -138,7 +140,6 @@ export class ModalTrabajoPage implements OnInit {
             resolve(res);
             this.modalCtrl.dismiss();
             this.mostrarToast();
-            this.makePdf()
           }, err => reject(err))
       })
     } else {
@@ -211,44 +212,5 @@ export class ModalTrabajoPage implements OnInit {
     });
 
     await alert.present();
-  }
-
-  makePdf() {
-    pdfmake.vfs = pdfFonts.pdfMake.vfs;    
-    var docDefinition = {    
-      content: [
-        {    
-          columns: [
-            {
-              
-              fit: [100, 100]
-            },
-          [
-            { text: 'BITCOIN', style: 'header' },
-            { text: 'Cryptocurrency Payment System', style: 'sub_header' },
-            { text: 'WEBSITE: https://bitcoin.org/', style: 'url' },
-          ]
-          ]
-        }
-      ],
-      styles: {
-        header: {
-            bold: true,
-            fontSize: 20,
-            alignment: 'right'
-          },
-          sub_header: {
-            fontSize: 18,
-            alignment: 'right'
-          },
-          url: {
-            fontSize: 16,
-            alignment: 'right'
-        }
-      },
-      pageSize: 'A4',
-      pageOrientation: 'portrait'
-    };
-    pdfmake.createPdf(docDefinition).open();
   }
 }

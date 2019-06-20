@@ -27,6 +27,9 @@ export class MaterialPage implements OnInit {
   public matList: any[];
   public catList: any[];
 
+  
+  isUpdate: boolean = false;
+
   constructor(public afs: AngularFirestore, public navCtrl: NavController, public modalController: ModalController) { }
 
   ngOnInit() {
@@ -74,6 +77,7 @@ export class MaterialPage implements OnInit {
       categoria: this.cat,
       proveedor: this.prov
     };
+    this.isUpdate = false;
     this.presentModal()
   }
 
@@ -85,13 +89,14 @@ export class MaterialPage implements OnInit {
     this.valueSearch = elementSelected.nombre;
     this.mat = elementSelected;
     console.log(elementSelected);
+    this.isUpdate = true;
     this.presentModal()
   }
 
   async presentModal() {
     const modal = await this.modalController.create({
       component: ModalMaterialPage,
-      componentProps: { material: this.mat }
+      componentProps: { material: this.mat, isUpdt: this.isUpdate  }
     });
     return await modal.present();
   }
